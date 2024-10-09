@@ -8,6 +8,21 @@
 </head>
 <body>
 
+    <header>
+        <h1>Kursy giełdowe</h1>
+
+        <nav>
+            <a href="#">Surowiec1</a>
+            <a href="#">Surowiec2</a>
+            <a href="#">Surowiec3</a>
+            <a href="#">Surowiec4</a>
+        </nav>   
+
+    </header>
+
+    <main>
+
+    <div class="stock">
 <?php
 $url = 'https://notowania.pb.pl/commodities/';
 // cURL
@@ -29,9 +44,9 @@ libxml_clear_errors();
 $xpath = new DOMXPath($dom);
 
 $commodityXpaths = [
-    'złoto' => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[14]/td[2]',
-    'gaz ziemny' => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[17]/td[2]',
-    'aluminium' => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[1]/td[2]',
+    'złoto' =>  /*jedn*/ '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[14]/td[2]',
+    'gaz ziemny' => /*jedn*/ '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[17]/td[2]',
+    'aluminium' =>  /*jedn*/ '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[1]/td[2]',
 ];
 // Wyświetlenie danych
 
@@ -52,35 +67,7 @@ foreach ($commodityXpaths as $commodity => $xPath) {
     echo '</table>';
 }
 ?>
-    <header>
-        <h1>Kursy giełdowe</h1>
-
-        <nav>
-            <a href="#">Surowiec1</a>
-            <a href="#">Surowiec2</a>
-            <a href="#">Surowiec3</a>
-            <a href="#">Surowiec4</a>
-        </nav>   
-
-    </header>
-
-    <main>
-
-        <div class="stock">
-
-            <table>
-                <tr>
-                    <th>Nazwa</th>
-                    <th>Jednostka</th>
-                    <th>Kurs</th>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </table>
-        </div>
+</div>
 
     </main>
     
