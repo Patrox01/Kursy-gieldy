@@ -15,6 +15,11 @@ header{
     text-decoration: none;
 }
 
+main{
+    margin-top: 25px;
+    padding: 45px 35px 0px 0px;
+}
+
 .navow{
     height: 55px;
     background-color: rgb(241, 239, 239);
