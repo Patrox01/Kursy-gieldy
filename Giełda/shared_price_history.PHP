@@ -1,25 +1,19 @@
 <?php
-// shared_price_history.php
 
-// Włącz wyświetlanie błędów (do debugowania)
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// Załaduj pliki konfiguracyjne do połączeń z bazami danych
 require 'config.php';  // Baza 1
 require 'config2.php'; // Baza 2
 require 'config3.php'; // Baza 3
 
-// Pobranie wszystkich surowców
 $materials = ['złoto', 'gaz ziemny', 'aluminium', 'kakao', 'cukier', 'pallad'];
 
-// Domyślne wartości dla surowca i zakresu dat
 $chosenMaterial = $_GET['surowiec'] ?? 'złoto';
 $dateFrom = $_GET['data_od'] ?? '2023-01-01';
 $dateTo = $_GET['data_do'] ?? date('Y-m-d');
 
-// Funkcja do pobierania danych z danej bazy danych
 function getData($pdo, $chosenMaterial, $dateFrom, $dateTo) {
     $stmt = $pdo->prepare("
         SELECT surowiec, jednostka, cena, data_pobrana 
@@ -36,24 +30,20 @@ function getData($pdo, $chosenMaterial, $dateFrom, $dateTo) {
     return $stmt->fetchAll();
 }
 
-// Pobierz dane z trzech baz danych
 $data1 = getData($pdo, $chosenMaterial, $dateFrom, $dateTo);  // Dane z bazy 1
 $data2 = getData($pdo2, $chosenMaterial, $dateFrom, $dateTo); // Dane z bazy 2
 $data3 = getData($pdo3, $chosenMaterial, $dateFrom, $dateTo); // Dane z bazy 3
 
-// Przygotowanie danych do wykresu
-$labels = [];  // Etykiety (daty) będą wspólne dla wszystkich baz
+$labels = [];  
 $prices1 = []; // Ceny z bazy 1
 $prices2 = []; // Ceny z bazy 2
 $prices3 = []; // Ceny z bazy 3
 
-// Wypełnij dane dla pierwszej bazy
 foreach ($data1 as $record) {
     $labels[] = date('Y-m-d H:i', strtotime($record['data_pobrana']));
     $prices1[] = $record['cena'];
 }
 
-// Wypełnij dane dla drugiej bazy (dodaj puste pola do etykiet, jeśli potrzebne)
 foreach ($data2 as $index => $record) {
     if (!isset($labels[$index])) {
         $labels[] = date('Y-m-d H:i', strtotime($record['data_pobrana']));
@@ -61,7 +51,6 @@ foreach ($data2 as $index => $record) {
     $prices2[] = $record['cena'];
 }
 
-// Wypełnij dane dla trzeciej bazy (dodaj puste pola do etykiet, jeśli potrzebne)
 foreach ($data3 as $index => $record) {
     if (!isset($labels[$index])) {
         $labels[] = date('Y-m-d H:i', strtotime($record['data_pobrana']));
@@ -69,10 +58,8 @@ foreach ($data3 as $index => $record) {
     $prices3[] = $record['cena'];
 }
 
-// Unikalna jednostka (przyjmujemy, że jest taka sama dla wszystkich baz)
 $jednostka = (!empty($data1)) ? $data1[0]['jednostka'] : '';
 
-// Formularz wyboru zakresu dat i surowca
 echo '<h1>Historia Cen Surowców z Trzech Baz Danych</h1>';
 echo '<form method="GET" action="shared_price_history.php">';
 echo '<label for="surowiec">Wybierz surowiec: </label>';
@@ -107,7 +94,7 @@ if (empty($data1) && empty($data2) && empty($data3)) {
                 labels: ' . json_encode($labels) . ',
                 datasets: [
                     {
-                        label: "Cena z Bazy 1 (' . htmlspecialchars($jednostka) . ')",
+                        label: "Cena z Bazy: notowania.pb.pl (' . htmlspecialchars($jednostka) . ')",
                         data: ' . json_encode($prices1) . ',
                         borderColor: "rgba(75, 192, 192, 1)",
                         backgroundColor: "rgba(75, 192, 192, 0.2)",
@@ -115,7 +102,7 @@ if (empty($data1) && empty($data2) && empty($data3)) {
                         tension: 0.1
                     },
                     {
-                        label: "Cena z Bazy 2 (' . htmlspecialchars($jednostka) . ')",
+                        label: "Cena z Bazy: bankier.pl  (' . htmlspecialchars($jednostka) . ')",
                         data: ' . json_encode($prices2) . ',
                         borderColor: "rgba(255, 99, 132, 1)",
                         backgroundColor: "rgba(255, 99, 132, 0.2)",
@@ -123,7 +110,7 @@ if (empty($data1) && empty($data2) && empty($data3)) {
                         tension: 0.1
                     },
                     {
-                        label: "Cena z Bazy 3 (' . htmlspecialchars($jednostka) . ')",
+                        label: "Cena z Bazy: next.gazeta.pl  (' . htmlspecialchars($jednostka) . ')",
                         data: ' . json_encode($prices3) . ',
                         borderColor: "rgba(54, 162, 235, 1)",
                         backgroundColor: "rgba(54, 162, 235, 0.2)",

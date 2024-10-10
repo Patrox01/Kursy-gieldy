@@ -1,22 +1,16 @@
 <?php
-// historia_cen.php
-
-// Włącz wyświetlanie błędów (do debugowania)
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 require 'config2.php';
 
-// Pobranie wszystkich surowców
 $materials = ['złoto', 'gaz ziemny', 'aluminium', 'kakao', 'cukier', 'pallad'];
 
-// Domyślne wartości dla surowca i zakresu dat
 $chosenMaterial = $_GET['surowiec'] ?? 'złoto';
 $dateFrom = $_GET['data_od'] ?? '2023-01-01';
 $dateTo = $_GET['data_do'] ?? date('Y-m-d');
 
-// Przygotowanie zapytania SQL z zakresu dat i wybranym surowcem
 $stmt = $pdo2->prepare("
     SELECT surowiec, jednostka, cena, data_pobrana 
     FROM historyczne_ceny 
@@ -25,7 +19,6 @@ $stmt = $pdo2->prepare("
     ORDER BY data_pobrana ASC
 ");
 
-// Wykonanie zapytania SQL
 $stmt->execute([
     ':surowiec' => ucfirst($chosenMaterial),
     ':data_od' => $dateFrom . ' 00:00:00',
@@ -34,7 +27,6 @@ $stmt->execute([
 
 $data = $stmt->fetchAll();
 
-// Formularz wyboru zakresu dat i surowca
 echo '<h1>Historia Cen Surowców</h1>';
 echo '<form method="GET" action="price_history.php">';
 echo '<label for="surowiec">Wybierz surowiec: </label>';
@@ -59,7 +51,6 @@ echo '<br>';
 if (empty($data)) {
     echo '<p>Brak danych dla wybranego surowca lub zakresu dat.</p>';
 } else {
-    // Przygotowanie danych do wykresu
     $labels = [];
     $prices = [];
     foreach ($data as $rekord) {
@@ -67,7 +58,6 @@ if (empty($data)) {
         $prices[] = $rekord['cena'];
     }
     
-    // Unikalna jednostka
     $jednostka = (!empty($data)) ? $data[0]['jednostka'] : '';
 
     
