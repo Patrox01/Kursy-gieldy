@@ -38,7 +38,9 @@
 
     <main>
 
-
+    <?php
+    include 'price_history.php';
+    ?>
 
     </main>
 

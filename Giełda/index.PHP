@@ -7,10 +7,6 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <?php
-    include 'config.php';
-    include 'copy&save.php';
-    ?>
 </head>
 <body>
 
@@ -143,9 +139,9 @@ echo '</table>';
 <div class="main2">
 <div class="stock2_1">
         <h2>Dane surowców pobrane z :</h2><br>
-        <a href="https://notowania.pb.pl/commodities/">https://notowania.pb.pl/commodities/</a>
+        <a href="https://www.bankier.pl/surowce/notowania">https://www.bankier.pl/surowce/notowania</a>
 <?php
-$url = 'https://notowania.pb.pl/commodities/';
+$url = 'https://www.bankier.pl/surowce/notowania';
 // cURL
 $ch = curl_init($url);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -165,33 +161,33 @@ libxml_clear_errors();
 $xpath = new DOMXPath($dom);
 
 $commodityXpaths = [
-    'złoto' =>  /*jedn*/ '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[14]/td[2]',
+    'złoto' =>  /*jedn*/ '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[1]/tr[2]/td[2]',
 
-    'gaz ziemny' => /*jedn*/ '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[17]/td[2]',
+    'gaz ziemny' => /*jedn*/ '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[2]/tr[9]/td[2]',
 
-    'aluminium' =>  /*jedn*/ '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[1]/td[2]',
+    'aluminium' =>  /*jedn*/ '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[1]/tr[8]/td[2]',
 
-    'kakao'     => /*jedn*/ '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[5]/td[2]',
+    'kakao'     => /*jedn*/ '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[2]/tr[10]/td[2]',
 
-    'cukier'    => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[31]/td[2]',
+    'cukier'    => '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[2]/tr[6]/td[2]',
 
-    'pallad'    => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[20]/td[2]'
+    'pallad'    => '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[1]/tr[5]/td[2]'
 
 
 ];
 
 $rateXpaths = [
-    'złoto' => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[14]/td[3]/span',
+    'złoto' => '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[1]/tr[2]/td[3]',
 
-    'gaz ziemny' => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[17]/td[3]/span',
+    'gaz ziemny' => '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[2]/tr[9]/td[3]',
 
-    'aluminium' => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[1]/td[3]/span',
+    'aluminium' => '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[1]/tr[8]/td[3]',
 
-    'kakao' => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[5]/td[3]/span',
+    'kakao' => '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[2]/tr[10]/td[3]',
 
-    'cukier' => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[31]/td[3]/span',
+    'cukier' => '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[2]/tr[6]/td[3]',
 
-    'pallad' => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[20]/td[3]/span'
+    'pallad' => '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[1]/tr[5]/td[3]'
 
 ];
 
@@ -246,9 +242,9 @@ echo '</table>';
 <div class="main3">
 <div class="stock3_1">
         <h2>Dane surowców pobrane z :</h2><br>
-        <a href="https://notowania.pb.pl/commodities/">https://notowania.pb.pl/commodities/</a>
+        <a href="https://next.gazeta.pl/surowce/notowania-surowcow">https://next.gazeta.pl/surowce/notowania-surowcow</a>
 <?php
-$url = 'https://notowania.pb.pl/commodities/';
+$url = 'https://next.gazeta.pl/surowce/notowania-surowcow';
 // cURL
 $ch = curl_init($url);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -268,33 +264,33 @@ libxml_clear_errors();
 $xpath = new DOMXPath($dom);
 
 $commodityXpaths = [
-    'złoto' =>  /*jedn*/ '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[14]/td[2]',
+    'złoto' =>  /*jedn*/ '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[36]/div[2]',
 
-    'gaz ziemny' => /*jedn*/ '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[17]/td[2]',
+    'gaz ziemny' => /*jedn*/ '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[6]/div[2]',
 
-    'aluminium' =>  /*jedn*/ '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[1]/td[2]',
+    'aluminium' =>  /*jedn*/ '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[1]/div[2]',
 
-    'kakao'     => /*jedn*/ '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[5]/td[2]',
+    'kakao'     => /*jedn*/ '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[8]/div[2]',
 
-    'cukier'    => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[31]/td[2]',
+    'cukier'    => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[4]/div[2]',
 
-    'pallad'    => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[20]/td[2]'
+    'pallad'    => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[22]/div[2]'
 
 
 ];
 
 $rateXpaths = [
-    'złoto' => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[14]/td[3]/span',
+    'złoto' => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[36]/div[3]',
 
-    'gaz ziemny' => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[17]/td[3]/span',
+    'gaz ziemny' => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[6]/div[3]',
 
-    'aluminium' => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[1]/td[3]/span',
+    'aluminium' => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[1]/div[3]',
 
-    'kakao' => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[5]/td[3]/span',
+    'kakao' => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[9]/div[3]',
 
-    'cukier' => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[31]/td[3]/span',
+    'cukier' => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[4]/div[3]',
 
-    'pallad' => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[20]/td[3]/span'
+    'pallad' => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[22]/div[3]'
 
 ];
 

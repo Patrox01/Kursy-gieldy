@@ -8,8 +8,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <?php
-    include 'config.php';
-    include 'copy&save.php';
+    include 'config3.php';
+    include 'copy&save3.php';
     ?>
 </head>
 <body>
@@ -38,7 +38,9 @@
 
     <main>
 
-
+    <?php
+    include 'price_history3.php';
+    ?>
 
     </main>
 
