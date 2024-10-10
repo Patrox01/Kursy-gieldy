@@ -8,8 +8,12 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <?php
+    include 'config.php';
+    include 'copy&save.php';
     include 'config2.php';
     include 'copy&save2.php';
+    include 'config3.php';
+    include 'copy&save3.php';
     ?>
 </head>
 <body>

@@ -40,7 +40,7 @@ $rateXpaths = [
     
 ];
 
-$stmt = $pdo->prepare("INSERT INTO historyczne_ceny (surowiec, jednostka, cena, data_pobrana) VALUES (:surowiec, :jednostka, :cena, :data_pobrana)");
+$stmt = $pdo3->prepare("INSERT INTO historyczne_ceny (surowiec, jednostka, cena, data_pobrana) VALUES (:surowiec, :jednostka, :cena, :data_pobrana)");
 
 foreach ($commodityXpaths as $commodity => $xPathCommodity) {
 

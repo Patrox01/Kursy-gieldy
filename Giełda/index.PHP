@@ -8,12 +8,21 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
+
+<?php
+    include 'config.php';
+    include 'copy&save.php';
+    include 'config2.php';
+    include 'copy&save2.php';
+    include 'config3.php';
+    include 'copy&save3.php';
+    ?>
 <body>
 
     <header>
 
         <div class="navow">
-            <a href="#">Z ostatniej chwili</a>
+            <a href="index_shared_chart.php">Z ostatniej chwili</a>
             <a href="#">Notowania</a>
             <a href="#">AI</a>
             <a href="#">Firma</a>
