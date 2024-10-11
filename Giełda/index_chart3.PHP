@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kursy giełdowe</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style2.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <?php
@@ -37,6 +37,13 @@
     </div>
     <a href="">Zaloguj się</a>
 </div>
+
+<div class="shared_chart">
+
+        <h2>Sprawdź najnowsze zmiany cen surowców na rynku - Porównaj ceny z trzech różnych źródeł!</h2>
+        <a href="index_shared_chart.php">Porównaj zmiany w jednym miejscu!</a>
+
+        </div>
 
 </header>
 

@@ -8,7 +8,6 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
-
 <?php
     include 'config.php';
     include 'copy&save.php';
@@ -22,7 +21,7 @@
     <header>
 
         <div class="navow">
-            <a href="index_shared_chart.php">Z ostatniej chwili</a>
+            <a href="#">Z ostatniej chwili</a>
             <a href="#">Notowania</a>
             <a href="#">AI</a>
             <a href="#">Firma</a>
@@ -39,6 +38,13 @@
             <a href="">Zaloguj się</a>
         </div>
 
+
+        <div class="shared_chart">
+
+        <h2>Sprawdź najnowsze zmiany cen surowców na rynku - Porównaj ceny z trzech różnych źródeł!</h2>
+        <a href="index_shared_chart.php">Porównaj zmiany w jednym miejscu!</a>
+
+        </div>
     </header>
 
     <main>
