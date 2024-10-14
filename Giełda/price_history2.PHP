@@ -1,3 +1,14 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historyczne ceny</title>
+    <link rel="stylesheet" href="style2.css">Historyczne ceny
+</head>
+<body>
+    <div class ="chart_script">
+    <a href="index.PHP">Powrót</a>
 <?php
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -5,7 +16,7 @@ error_reporting(E_ALL);
 
 require 'config2.php';
 
-$materials = ['złoto', 'gaz ziemny', 'aluminium', 'kakao', 'cukier', 'pallad'];
+$materials = ['złoto', 'pszenica', 'aluminium', 'kakao', 'cukier', 'pallad'];
 
 $chosenMaterial = $_GET['surowiec'] ?? 'złoto';
 $dateFrom = $_GET['data_od'] ?? '2023-01-01';
@@ -28,7 +39,7 @@ $stmt->execute([
 $data = $stmt->fetchAll();
 
 echo '<h1>Historia Cen Surowców</h1>';
-echo '<form method="GET" action="price_history.php">';
+echo '<form method="GET" action="price_history2.php">';
 echo '<label for="surowiec">Wybierz surowiec: </label>';
 echo '<select name="surowiec" id="surowiec">';
 foreach ($materials as $surowiec) {
@@ -102,3 +113,6 @@ if (empty($data)) {
     </script>';
 }
 ?>
+</div>
+</body>
+</html>

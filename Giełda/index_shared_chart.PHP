@@ -10,7 +10,7 @@
 </head>
 <body>
 
-< <header>
+<header>
 
 <div class="navow">
     <a href="#">Z ostatniej chwili</a>
@@ -30,6 +30,7 @@
     <a href="">Zaloguj się</a>
 </div>
 
+<div class="arrow_down"></div>
 </header>
 
     <main>

@@ -1,12 +1,22 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historyczne ceny</title>
+    <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+<div class ="chart_script">
+    <a href="index.PHP">Powrót</a>
 <?php
-
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 require 'config.php';
 
-$materials = ['złoto', 'gaz ziemny', 'aluminium', 'kakao', 'cukier', 'pallad'];
+$materials = ['złoto', 'pszenica', 'aluminium', 'kakao', 'cukier', 'pallad'];
 
 $chosenMaterial = $_GET['surowiec'] ?? 'złoto';
 $dateFrom = $_GET['data_od'] ?? '2023-01-01';
@@ -101,3 +111,7 @@ if (empty($data)) {
     </script>';
 }
 ?>
+</div>
+</body>
+</html>
+

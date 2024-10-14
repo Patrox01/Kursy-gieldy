@@ -13,7 +13,7 @@ $commodityXpaths = [
 
     'złoto' =>  /*jedn*/ '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[1]/tr[2]/td[2]',
 
-    'gaz ziemny' => /*jedn*/ '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[2]/tr[9]/td[2]',
+    'pszenica' => /*jedn*/ '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[2]/tr[18]/td[2]',
 
     'aluminium' =>  /*jedn*/ '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[1]/tr[8]/td[2]',
 
@@ -28,7 +28,7 @@ $rateXpaths = [
 
     'złoto' => '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[1]/tr[2]/td[3]',
 
-    'gaz ziemny' => '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[2]/tr[9]/td[3]',
+    'pszenica' => '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[2]/tr[18]/td[3]',
 
     'aluminium' => '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[1]/tr[8]/td[3]',
 

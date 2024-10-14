@@ -96,6 +96,21 @@ color: white;
     filter: invert(95%) sepia(100%) saturate(0%) hue-rotate(114deg) brightness(104%) contrast(106%);  
 }
 
+.arrow_down{
+    background-image: url(blue-arrow-clay-texture-pointing-down-hand-craft-graphic-kids.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: transparent;
+    background-size: contain;
+    height: 655px;
+    width: 600px;
+    margin-left: 965px;
+    margin-top: 300px;
+    position: absolute;
+    border-radius: 15px 15px 15px 15px;
+    padding-top: 6px;
+  
+}
 .shared_chart{
     height: 455px;
     background-color: transparent;
@@ -256,35 +271,35 @@ main{
     background-size: cover;
 }
 
-.stock2 p{
+.stock2 p, .stock2_2 p, .stock3_2 p{
     font-size: 28px;
     background-color: rgba(0, 0, 0, 0.205);
     padding-right: 95px;
+    margin-bottom: 50px;
+}
+
+.stock2 a, .stock2_2 a, .stock3_2 a{
+    height: 70px;
+    margin-left: 420px;
+    padding: 5px 5px 5px 5px;
+    color: white;
+    border: 3px groove black;
+    text-decoration: none;
+    font-size: 23px;
+    text-transform: uppercase;
+    background-color: rgba(0, 0, 0, 0.363);
+    cursor: pointer;
 }
 
 .stock2 a:hover, .stock2_2 a:hover, .stock3_2 a:hover{
-    height: 150px;
     filter: drop-shadow(0 0 10px rgba(151, 55, 55, 0.7)) 
             drop-shadow(0 0 20px rgba(142, 177, 224, 0.5)) 
             drop-shadow(0 0 30px rgba(110, 149, 233, 0.3));
-}
-
-.chart-bar{
-    height: 70px;
-    float: left;
-    /*filter: invert(87%) sepia(38%) saturate(386%) hue-rotate(126deg) brightness(94%) contrast(89%);*/
-    margin-left: 370px;
-    margin-top: 20px;
-    fill: white; /* Kolor wypełnienia SVG */
-    stroke: white; /* Kolor linii SVG */
-    transition: 0.3s ease-in-out;
-    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.7)) 
-            drop-shadow(0 0 20px rgba(142, 177, 224, 0.5)) 
-            drop-shadow(0 0 30px rgba(110, 149, 233, 0.3));
+    font-size: 25px;
+    transition: 0.5s;
+    border: 3px groove white;
 
 }
-
-
 
 .stock2_1{
     background-color: RGB(49, 50, 55);
@@ -353,12 +368,6 @@ main{
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-}
-
-.stock2_2 p{
-    font-size: 28px;
-    background-color: rgba(0, 0, 0, 0.205);
-    padding-right: 95px;
 }
 
 .stock3_1{
@@ -431,11 +440,7 @@ main{
     background-size: cover;
 }
 
-.stock3_2 p{
-    font-size: 28px;
-    background-color: rgba(0, 0, 0, 0.205);
-    padding-right: 95px;
-}
+
 .footer1{
     height: 450px;
     background-color: RGB(49, 50, 55);

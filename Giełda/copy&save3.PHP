@@ -13,7 +13,7 @@ $commodityXpaths = [
 
     'złoto' =>  /*jedn*/ '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[36]/div[2]',
 
-    'gaz ziemny' => /*jedn*/ '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[6]/div[2]',
+    'pszenica' => /*jedn*/ '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[24]/div[2]',
 
     'aluminium' =>  /*jedn*/ '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[1]/div[2]',
 
@@ -28,11 +28,11 @@ $rateXpaths = [
 
     'złoto' => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[36]/div[3]',
 
-    'gaz ziemny' => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[6]/div[3]',
+    'pszenica' => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[24]/div[3]',
 
     'aluminium' => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[1]/div[3]',
 
-    'kakao' => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[9]/div[3]',
+    'kakao' => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[8]/div[3]',
 
     'cukier' => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[4]/div[3]',
 

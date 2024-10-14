@@ -117,7 +117,7 @@ color: white;
                 0 0 30px rgba(255, 255, 255, 0.3);
 
     display: flex;
-    justify-content: center; /* Centruje poziomo */
+    justify-content: center;
     align-items: center;
     flex-direction: column;
 }
@@ -168,22 +168,78 @@ color: white;
 }
 main{
     margin-top: 50px;
-    height: 1050px;
+    height: 1200px;
     padding-left: 125px;
     
 }
 
 
-input[type=submit] {
-    background-color: #04AA6D;
-    border: none;
-    color: white;
-    padding: 16px 32px;
-    text-decoration: none;
-    margin: 4px 2px;
-    cursor: pointer;
+  input[type=text], select {
+    width: 10%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
   }
 
+  input[type=date] {
+    width: 10%;
+    padding: 12px 20px;
+    margin: 8px 8px 15px 67px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  button[type=submit]{
+    font-size: 25px;
+    padding: 5px 15px 5px 15px;
+    box-sizing: border-box;
+    background-color: #4bc0c0;
+    margin-left: 200px;
+    color: white;
+  }
+
+  button[type=submit]:hover{
+    font-size: 26px;
+    transition: 0.5s;
+    background-color: white;
+    color: #4bc0c0;;
+  }
+
+  .chart_script{
+    background-color: white;
+  }
+
+  .chart_script a{
+    text-decoration: none;
+    text-decoration: none;
+    padding-top: 5px;
+    padding-left: 20px;
+    background: #4BC0C0;
+    border: 2px solid black;
+    padding: 10px 20px;
+    font-size: 25px;
+    color: white;
+    transition: 0.3s ease-in-out;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.7)) 
+            drop-shadow(0 0 20px rgba(255, 255, 255, 0.5)) 
+            drop-shadow(0 0 30px rgba(255, 255, 255, 0.3));
+    margin-left: 145vh;
+  }
+
+  .chart_script a:hover{
+    filter:
+            drop-shadow(0 0 40px rgba(99, 99, 99, 0.6));
+            background: white;
+            color: #309b9b;
+            font-size: 26px;
+            transition: 26px;
+
+  }
 .footer1{
     height: 450px;
     background-color: RGB(49, 50, 55);

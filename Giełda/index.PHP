@@ -41,7 +41,7 @@
 
         <div class="shared_chart">
 
-        <h2>Sprawdź najnowsze zmiany cen surowców na rynku - Porównaj ceny z trzech różnych źródeł!</h2>
+        <h2>Sprawdź najnowsze zmiany cen surowców na rynku <br> Porównaj ceny z trzech różnych źródeł!</h2>
         <a href="index_shared_chart.php">Porównaj zmiany w jednym miejscu!</a>
 
         </div>
@@ -75,7 +75,7 @@ $xpath = new DOMXPath($dom);
 $commodityXpaths = [
     'złoto' =>  /*jedn*/ '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[14]/td[2]',
 
-    'gaz ziemny' => /*jedn*/ '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[17]/td[2]',
+    'pszenica' => /*jedn*/ '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[32]/td[2]',
 
     'aluminium' =>  /*jedn*/ '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[1]/td[2]',
 
@@ -91,7 +91,7 @@ $commodityXpaths = [
 $rateXpaths = [
     'złoto' => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[14]/td[3]/span',
 
-    'gaz ziemny' => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[17]/td[3]/span',
+    'pszenica' => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[32]/td[3]/span',
 
     'aluminium' => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[1]/td[3]/span',
 
@@ -145,7 +145,7 @@ echo '</table>';
 <div class="stock2">
     <p>Zobrazuj zmiany cen na wykresie</p>
 
-    <a href="index_chart.PHP"><img src="chart-bar-solid.svg" class="chart-bar" alt="wykres"></a>
+    <a href="index_chart.php">sprawdź</a>
 
 </div>
 
@@ -178,7 +178,7 @@ $xpath = new DOMXPath($dom);
 $commodityXpaths = [
     'złoto' =>  /*jedn*/ '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[1]/tr[2]/td[2]',
 
-    'gaz ziemny' => /*jedn*/ '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[2]/tr[9]/td[2]',
+    'pszenica' => /*jedn*/ '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[2]/tr[18]/td[2]',
 
     'aluminium' =>  /*jedn*/ '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[1]/tr[8]/td[2]',
 
@@ -194,7 +194,7 @@ $commodityXpaths = [
 $rateXpaths = [
     'złoto' => '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[1]/tr[2]/td[3]',
 
-    'gaz ziemny' => '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[2]/tr[9]/td[3]',
+    'pszenica' => '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[2]/tr[18]/td[3]',
 
     'aluminium' => '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[1]/tr[8]/td[3]',
 
@@ -248,7 +248,7 @@ echo '</table>';
 <div class="stock2_2">
     <p>Zobrazuj zmiany cen na wykresie</p>
 
-    <a href="index_chart2.PHP"><img src="chart-bar-solid.svg" class="chart-bar" alt="wykres"></a>
+    <a href="index_chart2.php">sprawdź</a>
 
 </div>
 
@@ -281,7 +281,7 @@ $xpath = new DOMXPath($dom);
 $commodityXpaths = [
     'złoto' =>  /*jedn*/ '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[36]/div[2]',
 
-    'gaz ziemny' => /*jedn*/ '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[6]/div[2]',
+    'pszenica' => /*jedn*/ '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[24]/div[2]',
 
     'aluminium' =>  /*jedn*/ '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[1]/div[2]',
 
@@ -297,11 +297,11 @@ $commodityXpaths = [
 $rateXpaths = [
     'złoto' => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[36]/div[3]',
 
-    'gaz ziemny' => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[6]/div[3]',
+    'pszenica' => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[24]/div[3]',
 
     'aluminium' => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[1]/div[3]',
 
-    'kakao' => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[9]/div[3]',
+    'kakao' => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[8]/div[3]',
 
     'cukier' => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[4]/div[3]',
 
@@ -351,7 +351,7 @@ echo '</table>';
 <div class="stock3_2">
     <p>Zobrazuj zmiany cen na wykresie</p>
 
-    <a href="index_chart3.PHP"><img src="chart-bar-solid.svg" class="chart-bar" alt="wykres"></a>
+    <a href="index_chart3.php">sprawdź</a>
 
 </div>
 

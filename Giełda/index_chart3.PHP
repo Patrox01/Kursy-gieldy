@@ -40,7 +40,7 @@
 
 <div class="shared_chart">
 
-        <h2>Sprawdź najnowsze zmiany cen surowców na rynku - Porównaj ceny z trzech różnych źródeł!</h2>
+    <h2>Sprawdź najnowsze zmiany cen surowców na rynku <br> Porównaj ceny z trzech różnych źródeł!</h2>
         <a href="index_shared_chart.php">Porównaj zmiany w jednym miejscu!</a>
 
         </div>
