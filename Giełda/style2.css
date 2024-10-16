@@ -24,8 +24,8 @@ header{
     margin-top: 10px;
     position: absolute;
     border-radius: 15px 0px 15px 0px;
-    padding-top: 6px;
-    padding-left: 80px;
+    padding-top: 16px;
+    padding-left: 20px;
     
 }
 .navow a{
@@ -33,10 +33,31 @@ header{
     padding-top: 5px;
     color:white;
     padding-left: 20px;
+    position: relative;
 }
 .navow a:hover{
     color:rgb(62, 132, 148);
+    font-size: 18px;
+    transition: 0.5s;
 }
+
+.welcome{
+    color:white;
+    font-size: 20px;
+    position: absolute;
+    margin-left: 25px;
+}
+
+.welcome:hover{
+    color: white;
+    cursor: default;
+    font-size: 20px;
+}
+
+#registerLink{
+    margin-left: 80px; 
+}
+
 .rejestruj{
     height: 55px;
     width: 120px;
@@ -168,11 +189,34 @@ color: white;
 }
 main{
     margin-top: 50px;
-    height: 1200px;
+    height: 1280px;
     padding-left: 125px;
     
 }
 
+main canvas{
+    padding-right: 230px;
+}
+
+.dataSubmit a{
+    text-decoration: none;
+    background: #4bc0c0;
+    border: 2px solid black;
+    padding: 10px 20px;
+    font-size: 20px;
+    color: white;
+    transition: 0.3s ease-in-out;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.7)) 
+            drop-shadow(0 0 20px rgba(255, 255, 255, 0.5)) 
+            drop-shadow(0 0 30px rgba(255, 255, 255, 0.3));
+}
+
+.dataSubmit a:hover{
+    font-size: 26px;
+    transition: 0.5s;
+    background-color: white;
+    color: #4bc0c0;;
+}
 
   input[type=text], select {
     width: 10%;

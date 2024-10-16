@@ -22,7 +22,7 @@ require 'config3.php'; // Baza 3
 $materials = ['złoto', 'pszenica', 'aluminium', 'kakao', 'cukier', 'pallad'];
 
 $chosenMaterial = $_GET['surowiec'] ?? 'złoto';
-$dateFrom = $_GET['data_od'] ?? '2023-01-01';
+$dateFrom = $_GET['data_od'] ?? date('Y-m-d', strtotime('-1 day'));
 $dateTo = $_GET['data_do'] ?? date('Y-m-d');
 
 function getData($pdo, $chosenMaterial, $dateFrom, $dateTo) {
@@ -72,7 +72,7 @@ foreach ($data3 as $index => $record) {
 $jednostka = (!empty($data1)) ? $data1[0]['jednostka'] : '';
 
 echo '<h1>Historia Cen Surowców z Trzech Baz Danych</h1>';
-echo '<form method="GET" action="shared_price_history.php">';
+echo '<form method="GET" action="index_shared_chart.php">';
 echo '<label for="surowiec">Wybierz surowiec: </label>';
 echo '<select name="surowiec" id="surowiec">';
 foreach ($materials as $material) {
@@ -95,7 +95,7 @@ echo '<br>';
 if (empty($data1) && empty($data2) && empty($data3)) {
     echo '<p>Brak danych dla wybranego surowca lub zakresu dat.</p>';
 } else {
-    echo '<canvas id="chart_' . htmlspecialchars($chosenMaterial) . '" width="800" height="400"></canvas>';
+    echo '<canvas id="chart_' . htmlspecialchars($chosenMaterial) . '" width="1000" height="500"></canvas>';
     echo '<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>';
     echo '<script>
         const ctx_' . htmlspecialchars($chosenMaterial) . ' = document.getElementById("chart_' . htmlspecialchars($chosenMaterial) . '").getContext("2d");

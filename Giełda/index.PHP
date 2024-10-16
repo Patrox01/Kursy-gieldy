@@ -6,16 +6,113 @@
     <title>Kursy giełdowe</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="icon" href="logo_stopka.png" type="image/png">  
 
 </head>
 <?php
-    include 'config.php';
-    include 'copy&save.php';
-    include 'config2.php';
-    include 'copy&save2.php';
-    include 'config3.php';
-    include 'copy&save3.php';
-    ?>
+session_start();
+?>
+<style>
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            width: 300px;
+            text-align: center;
+        }
+
+        .close {
+            float: right;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        input {
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+</style>
+
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // rejestracja
+            const urlParams = new URLSearchParams(window.location.search);
+            const registerError = urlParams.get('register_error');
+
+            if (registerError) {
+            switch (registerError) {
+                case 'empty':
+                    alert('Wszystkie pola są wymagane przy rejestracji!');
+                    break;
+                case 'user_exists':
+                    alert('Nazwa użytkownika jest już zajęta. Wybierz inną.');
+                    break;
+                case 'weak_password':
+                    alert('Hasło musi mieć co najmniej 8 znaków, w tym co najmniej jedną cyfrę i jeden znak specjalny.');
+                    break;
+                case 'password_mismatch':
+                    alert('Hasła nie są zgodne. Wpisz ponownie.');
+                    break;
+                case 'server':
+                    alert('Wystąpił błąd serwera podczas rejestracji. Spróbuj ponownie później.');
+                    break;
+                case 'invalid_request':
+                    alert('Nieprawidłowe żądanie rejestracji.');
+                    break;
+                default:
+                    alert('Wystąpił nieznany błąd podczas rejestracji.');
+            }
+        }
+    })
+            // logowanie
+            const error = urlParams.get('error');
+
+            if (error) {
+                switch (error) {
+                    case 'empty':
+                        alert('Wszystkie pola są wymagane!');
+                        break;
+                    case 'invalid':
+                        alert('Niepoprawna nazwa użytkownika lub hasło.');
+                        break;
+                    case 'server':
+                        alert('Wystąpił błąd serwera. Spróbuj ponownie później.');
+                        break;
+                    case 'invalid_request':
+                        alert('Nieprawidłowe żądanie.');
+                        break;
+                    default:
+                        alert('Wystąpił nieznany błąd.');
+                }
+            }
+    </script>
 <body>
 
     <header>
@@ -25,412 +122,547 @@
             <a href="#">Notowania</a>
             <a href="#">AI</a>
             <a href="#">Firma</a>
+            <?php if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true): ?>
+                <a href="" id="registerLink">Załóż konto</a>
+            <?php endif; ?>
+            <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
+                <a class="welcome">Witaj <?php echo htmlspecialchars($_SESSION['username']);?>!</a>
+            <?php endif;?>
 
-            <div class="rejestruj">
-                <a href="">Załóż konto</a>
-            </div>
+            
+       
+            <script>
+                document.getElementById('registerForm').addEventListener('submit', function (e) {
+                const password = document.getElementById('password').value;
+                const passwordConfirm = document.getElementById('password_confirm').value;
+
+                // Polityka hasła: minimum 8 znaków, w tym co najmniej jedna liczba i jeden znak specjalny
+                const passwordPolicy = /^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{8,}$/;
+
+                if (!passwordPolicy.test(password)) {
+                    alert('Hasło musi mieć co najmniej 8 znaków, w tym co najmniej jedną cyfrę i jeden znak specjalny.');
+                    e.preventDefault();
+                    return;
+                }
+
+                if (password !== passwordConfirm) {
+                    alert('Hasła nie są zgodne. Wpisz ponownie.');
+                    e.preventDefault();
+                }
+                });
+            </script>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                const registerLink = document.getElementById('registerLink');
+                const registerModal = document.getElementById('registerModal');
+                const closeRegisterModal = document.getElementById('closeRegisterModal');
+                const content = document.getElementById('content');
+
+                registerLink.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    registerModal.style.display = 'flex';
+                    content.style.display = 'none';
+                });
+
+                if (closeRegisterModal) {
+                    closeRegisterModal.addEventListener('click', () => {
+                        registerModal.style.display = 'none';
+                        content.style.display = 'flex';
+                    });
+                }
+                });
+            </script>
+        </div>
+
+        <div id="registerModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" id="closeRegisterModal">&times;</span>
+                    <h2>Rejestracja</h2>
+                    <form id="registerForm" action="register.php" method="post">
+                        <input type="text" name="username" placeholder="Login" required>
+                        <input type="password" name="password" placeholder="Hasło" required>
+                        <input type="password" name="password_confirm" placeholder="Powtórz hasło" required id="password_confirm">
+                        <button type="submit">Zarejestruj się</button>
+                    </form>
+                </div>
         </div>
 
         <div class="rejestracja">
-            <div class="head">
-            <img class="lock" src="lock-solid.svg" alt="">
+            <div class="head">    
+                <img class="lock" src="lock-solid.svg" alt="">
             </div>
-            <a href="">Zaloguj się</a>
+
+                <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
+                <div id="welcome">
+             
+                    <a href="logout.php" id="logoutButton">Wyloguj się</a>
+                </div>
+                <?php else: ?>
+                    <a href="#" id="loginLink">Zaloguj się</a>
+                <?php endif; ?>
+
+            <div id="loginModal" class="modal">
+            <div class="modal-content">
+
+            <span class="close" id="closeModal">&times;</span>
+            <h2>Logowanie</h2>
+
+            <form id="loginForm" action="login.php" method="post">
+                <input type="text" name="username" placeholder="Login" required>
+                <input type="password" name="password" placeholder="Hasło" required>
+                <button type="submit">Zaloguj się</button>
+            </form>
+            </div>
+            </div>
         </div>
 
+        <div class="shared_chart" id="content">
+            <h2>Sprawdź najnowsze zmiany cen surowców na rynku <br> Porównaj ceny z trzech różnych źródeł!</h2>
+            <a href="index_shared_chart.php">Porównaj zmiany w jednym miejscu!</a>          
 
-        <div class="shared_chart">
-
-        <h2>Sprawdź najnowsze zmiany cen surowców na rynku <br> Porównaj ceny z trzech różnych źródeł!</h2>
-        <a href="index_shared_chart.php">Porównaj zmiany w jednym miejscu!</a>
+            <div id="mustBeLoggedInModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" id="closeMustBeLoggedInModal">&times;</span>
+                    <p>Musisz być zalogowany, aby porównać zmiany.</p>
+                </div>
+            </div>
 
         </div>
+
+        <script>
+            const loginLink = document.getElementById('loginLink');
+            const loginModal = document.getElementById('loginModal');
+            const closeModal = document.getElementById('closeModal');
+            const content = document.getElementById('content');
+            const welcome = document.getElementById('welcome');
+            const compareLink = document.querySelector('.shared_chart a');
+            const mustBeLoggedInModal = document.getElementById('mustBeLoggedInModal');
+            const closeMustBeLoggedInModal = document.getElementById('closeMustBeLoggedInModal');
+            
+            // Pokaż modal logowania i ukryj content
+            if (loginLink) {
+                loginLink.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    loginModal.style.display = 'flex';
+                    content.style.display = 'none';
+                });
+            }
+
+            // Zamknij modal i pokaż content
+            if (closeModal) {
+                closeModal.addEventListener('click', () => {
+                    loginModal.style.display = 'none';
+                    content.style.display = 'flex';
+                });
+            }
+
+            <?php if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true): ?>
+                    if (compareLink) {
+                        compareLink.addEventListener('click', (event) => {
+                            event.preventDefault();
+                            mustBeLoggedInModal.style.display = 'flex';
+                        });
+                    }
+                <?php endif; ?>
+
+                if (closeMustBeLoggedInModal) {
+                    closeMustBeLoggedInModal.addEventListener('click', () => {
+                        mustBeLoggedInModal.style.display = 'none';
+                    });
+                }
+    </script>
+
     </header>
 
-    <main>
+        <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
 
-    <div class="stock">
-        <h2>Dane surowców pobrane z :</h2><br>
-        <a href="https://notowania.pb.pl/commodities/">https://notowania.pb.pl/commodities/</a>
-<?php
-$url = 'https://notowania.pb.pl/commodities/';
-// cURL
-$ch = curl_init($url);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$response = curl_exec($ch);
-curl_close($ch);
+    <main id="mainsite">
 
-if ($response === false) {
-    die('Błąd w pobieraniu danych.');
-}
+        <div class="stock">
+            <h2>Dane surowców pobrane z :</h2><br>
+            <a href="https://notowania.pb.pl/commodities/">https://notowania.pb.pl/commodities/</a>
+        <?php
+        $url = 'https://notowania.pb.pl/commodities/';
+        // cURL
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($ch);
+        curl_close($ch);
 
-$dom = new DOMDocument();
+        if ($response === false) {
+            die('Błąd w pobieraniu danych.');
+        }
 
-libxml_use_internal_errors(true);
-$dom->loadHTML($response);
-libxml_clear_errors();
+        $dom = new DOMDocument();
 
-$xpath = new DOMXPath($dom);
+        libxml_use_internal_errors(true);
+        $dom->loadHTML($response);
+        libxml_clear_errors();
 
-$commodityXpaths = [
-    'złoto' =>  /*jedn*/ '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[14]/td[2]',
+        $xpath = new DOMXPath($dom);
 
-    'pszenica' => /*jedn*/ '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[32]/td[2]',
+        $commodityXpaths = [
+            'złoto' =>  /*jedn*/ '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[14]/td[2]',
 
-    'aluminium' =>  /*jedn*/ '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[1]/td[2]',
+            'pszenica' => /*jedn*/ '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[32]/td[2]',
 
-    'kakao'     => /*jedn*/ '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[5]/td[2]',
+            'aluminium' =>  /*jedn*/ '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[1]/td[2]',
 
-    'cukier'    => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[31]/td[2]',
+            'kakao'     => /*jedn*/ '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[5]/td[2]',
 
-    'pallad'    => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[20]/td[2]'
+            'cukier'    => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[31]/td[2]',
 
+            'pallad'    => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[20]/td[2]'
 
-];
 
-$rateXpaths = [
-    'złoto' => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[14]/td[3]/span',
+        ];
 
-    'pszenica' => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[32]/td[3]/span',
+        $rateXpaths = [
+            'złoto' => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[14]/td[3]/span',
 
-    'aluminium' => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[1]/td[3]/span',
+            'pszenica' => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[32]/td[3]/span',
 
-    'kakao' => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[5]/td[3]/span',
+            'aluminium' => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[1]/td[3]/span',
 
-    'cukier' => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[31]/td[3]/span',
+            'kakao' => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[5]/td[3]/span',
 
-    'pallad' => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[20]/td[3]/span'
+            'cukier' => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[31]/td[3]/span',
 
-];
+            'pallad' => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[20]/td[3]/span'
 
-// Dane
-echo '<table border="1">';
-echo '<tr><th>Surowiec</th><th>Jednostka</th><th>Cena</th></tr>';
+        ];
 
-foreach ($commodityXpaths as $commodity => $xPathCommodity) {
-    $commodityelements = $xpath->query($xPathCommodity);
+        // Dane
+        echo '<table border="1">';
+        echo '<tr><th>Surowiec</th><th>Jednostka</th><th>Cena</th></tr>';
 
-    $xPathRate = $rateXpaths[$commodity];
-    $rateElements = $xpath->query($xPathRate);
+        foreach ($commodityXpaths as $commodity => $xPathCommodity) {
+            $commodityelements = $xpath->query($xPathCommodity);
 
-    echo '<tr><td>'.ucfirst($commodity) . '</td>';
+            $xPathRate = $rateXpaths[$commodity];
+            $rateElements = $xpath->query($xPathRate);
 
-    echo '<td>';
-    if ($commodityelements->length > 0) {
-        echo $commodityelements->item(0)->nodeValue;
-    } else {
-        echo 'Brak danych.';
-    }
-    echo '</td>';
+            echo '<tr><td>'.ucfirst($commodity) . '</td>';
 
-    echo '<td>';
+            echo '<td>';
+            if ($commodityelements->length > 0) {
+                echo $commodityelements->item(0)->nodeValue;
+            } else {
+                echo 'Brak danych.';
+            }
+            echo '</td>';
 
+            echo '<td>';
 
- if ($rateElements->length > 0) {
-        echo $rateElements->item(0)->nodeValue;
-    } else {
-        echo 'Brak danych.';
-    }
-    echo '</td>';
-    
-    echo '</tr>';
-}
 
-echo '</table>';
+        if ($rateElements->length > 0) {
+                echo $rateElements->item(0)->nodeValue;
+            } else {
+                echo 'Brak danych.';
+            }
+            echo '</td>';
+            
+            echo '</tr>';
+        }
 
-?>
+        echo '</table>';
 
-</div>
+        ?>
 
-<div class="stock2">
-    <p>Zobrazuj zmiany cen na wykresie</p>
+    </div>
 
-    <a href="index_chart.php">sprawdź</a>
+    <div class="stock2">
+        <p>Zobrazuj zmiany cen na wykresie</p>
 
-</div>
+        <a href="index_chart.php">sprawdź</a>
+    </div>
 
-</main>
 
-<div class="main2">
-<div class="stock2_1">
-        <h2>Dane surowców pobrane z :</h2><br>
-        <a href="https://www.bankier.pl/surowce/notowania">https://www.bankier.pl/surowce/notowania</a>
-<?php
-$url = 'https://www.bankier.pl/surowce/notowania';
-// cURL
-$ch = curl_init($url);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$response = curl_exec($ch);
-curl_close($ch);
+    <?php endif; ?>
 
-if ($response === false) {
-    die('Błąd w pobieraniu danych.');
-}
+    </main>
 
-$dom = new DOMDocument();
+    <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
 
-libxml_use_internal_errors(true);
-$dom->loadHTML($response);
-libxml_clear_errors();
+    <div class="main2" id="mainsite2">
+        <div class="stock2_1">
+                <h2>Dane surowców pobrane z :</h2><br>
+                <a href="https://www.bankier.pl/surowce/notowania">https://www.bankier.pl/surowce/notowania</a>
+        <?php
+        $url = 'https://www.bankier.pl/surowce/notowania';
+        // cURL
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($ch);
+        curl_close($ch);
 
-$xpath = new DOMXPath($dom);
+        if ($response === false) {
+            die('Błąd w pobieraniu danych.');
+        }
 
-$commodityXpaths = [
-    'złoto' =>  /*jedn*/ '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[1]/tr[2]/td[2]',
+        $dom = new DOMDocument();
 
-    'pszenica' => /*jedn*/ '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[2]/tr[18]/td[2]',
+        libxml_use_internal_errors(true);
+        $dom->loadHTML($response);
+        libxml_clear_errors();
 
-    'aluminium' =>  /*jedn*/ '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[1]/tr[8]/td[2]',
+        $xpath = new DOMXPath($dom);
 
-    'kakao'     => /*jedn*/ '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[2]/tr[10]/td[2]',
+            $commodityXpaths = [
+                'złoto' =>  /*jedn*/ '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[1]/tr[2]/td[2]',
 
-    'cukier'    => '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[2]/tr[6]/td[2]',
+                'pszenica' => /*jedn*/ '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[2]/tr[18]/td[2]',
 
-    'pallad'    => '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[1]/tr[5]/td[2]'
+                'aluminium' =>  /*jedn*/ '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[1]/tr[8]/td[2]',
 
+                'kakao'     => /*jedn*/ '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[2]/tr[10]/td[2]',
 
-];
+                'cukier'    => '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[2]/tr[6]/td[2]',
 
-$rateXpaths = [
-    'złoto' => '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[1]/tr[2]/td[3]',
+                'pallad'    => '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[1]/tr[5]/td[2]'
 
-    'pszenica' => '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[2]/tr[18]/td[3]',
 
-    'aluminium' => '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[1]/tr[8]/td[3]',
+            ];
 
-    'kakao' => '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[2]/tr[10]/td[3]',
+            $rateXpaths = [
+                'złoto' => '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[1]/tr[2]/td[3]',
 
-    'cukier' => '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[2]/tr[6]/td[3]',
+                'pszenica' => '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[2]/tr[18]/td[3]',
 
-    'pallad' => '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[1]/tr[5]/td[3]'
+                'aluminium' => '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[1]/tr[8]/td[3]',
 
-];
+                'kakao' => '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[2]/tr[10]/td[3]',
 
-// Dane
-echo '<table border="1">';
-echo '<tr><th>Surowiec</th><th>Jednostka</th><th>Cena</th></tr>';
+                'cukier' => '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[2]/tr[6]/td[3]',
 
-foreach ($commodityXpaths as $commodity => $xPathCommodity) {
-    $commodityelements = $xpath->query($xPathCommodity);
+                'pallad' => '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[1]/tr[5]/td[3]'
 
-    $xPathRate = $rateXpaths[$commodity];
-    $rateElements = $xpath->query($xPathRate);
+            ];
 
-    echo '<tr><td>'.ucfirst($commodity) . '</td>';
+            // Dane
+            echo '<table border="1">';
+            echo '<tr><th>Surowiec</th><th>Jednostka</th><th>Cena</th></tr>';
 
-    echo '<td>';
-    if ($commodityelements->length > 0) {
-        echo $commodityelements->item(0)->nodeValue;
-    } else {
-        echo 'Brak danych.';
-    }
-    echo '</td>';
+            foreach ($commodityXpaths as $commodity => $xPathCommodity) {
+                $commodityelements = $xpath->query($xPathCommodity);
 
-    echo '<td>';
+                $xPathRate = $rateXpaths[$commodity];
+                $rateElements = $xpath->query($xPathRate);
 
+                echo '<tr><td>'.ucfirst($commodity) . '</td>';
 
- if ($rateElements->length > 0) {
-        echo $rateElements->item(0)->nodeValue;
-    } else {
-        echo 'Brak danych.';
-    }
-    echo '</td>';
-    
-    echo '</tr>';
-}
+                echo '<td>';
+                if ($commodityelements->length > 0) {
+                    echo $commodityelements->item(0)->nodeValue;
+                } else {
+                    echo 'Brak danych.';
+                }
+                echo '</td>';
 
-echo '</table>';
+                echo '<td>';
 
-?>
 
-</div>
+            if ($rateElements->length > 0) {
+                    echo $rateElements->item(0)->nodeValue;
+                } else {
+                    echo 'Brak danych.';
+                }
+                echo '</td>';
+                
+                echo '</tr>';
+            }
 
-<div class="stock2_2">
-    <p>Zobrazuj zmiany cen na wykresie</p>
+            echo '</table>';
 
-    <a href="index_chart2.php">sprawdź</a>
+            ?>
 
-</div>
+        </div>
 
-</div>
+    <div class="stock2_2">
+        <p>Zobrazuj zmiany cen na wykresie</p>
+        <a href="index_chart2.php">sprawdź</a>
+    </div>
 
-<div class="main3">
-<div class="stock3_1">
-        <h2>Dane surowców pobrane z :</h2><br>
-        <a href="https://next.gazeta.pl/surowce/notowania-surowcow">https://next.gazeta.pl/surowce/notowania-surowcow</a>
-<?php
-$url = 'https://next.gazeta.pl/surowce/notowania-surowcow';
-// cURL
-$ch = curl_init($url);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$response = curl_exec($ch);
-curl_close($ch);
+    </div>
+    <?php endif; ?>
 
-if ($response === false) {
-    die('Błąd w pobieraniu danych.');
-}
+    <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
 
-$dom = new DOMDocument();
+    <div class="main3" id="mainsite3">
+        <div class="stock3_1">
+                <h2>Dane surowców pobrane z :</h2><br>
+                <a href="https://next.gazeta.pl/surowce/notowania-surowcow">https://next.gazeta.pl/surowce/notowania-surowcow</a>
+        <?php
+        $url = 'https://next.gazeta.pl/surowce/notowania-surowcow';
+        // cURL
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($ch);
+        curl_close($ch);
 
-libxml_use_internal_errors(true);
-$dom->loadHTML($response);
-libxml_clear_errors();
+        if ($response === false) {
+            die('Błąd w pobieraniu danych.');
+        }
 
-$xpath = new DOMXPath($dom);
+        $dom = new DOMDocument();
 
-$commodityXpaths = [
-    'złoto' =>  /*jedn*/ '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[36]/div[2]',
+        libxml_use_internal_errors(true);
+        $dom->loadHTML($response);
+        libxml_clear_errors();
 
-    'pszenica' => /*jedn*/ '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[24]/div[2]',
+        $xpath = new DOMXPath($dom);
 
-    'aluminium' =>  /*jedn*/ '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[1]/div[2]',
+            $commodityXpaths = [
+                'złoto' =>  /*jedn*/ '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[36]/div[2]',
 
-    'kakao'     => /*jedn*/ '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[8]/div[2]',
+                'pszenica' => /*jedn*/ '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[24]/div[2]',
 
-    'cukier'    => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[4]/div[2]',
+                'aluminium' =>  /*jedn*/ '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[1]/div[2]',
 
-    'pallad'    => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[22]/div[2]'
+                'kakao'     => /*jedn*/ '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[8]/div[2]',
 
+                'cukier'    => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[4]/div[2]',
 
-];
+                'pallad'    => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[22]/div[2]'
 
-$rateXpaths = [
-    'złoto' => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[36]/div[3]',
 
-    'pszenica' => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[24]/div[3]',
+            ];
 
-    'aluminium' => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[1]/div[3]',
+            $rateXpaths = [
+                'złoto' => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[36]/div[3]',
 
-    'kakao' => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[8]/div[3]',
+                'pszenica' => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[24]/div[3]',
 
-    'cukier' => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[4]/div[3]',
+                'aluminium' => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[1]/div[3]',
 
-    'pallad' => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[22]/div[3]'
+                'kakao' => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[8]/div[3]',
 
-];
+                'cukier' => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[4]/div[3]',
 
-// Dane
-echo '<table border="1">';
-echo '<tr><th>Surowiec</th><th>Jednostka</th><th>Cena</th></tr>';
+                'pallad' => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[22]/div[3]'
 
-foreach ($commodityXpaths as $commodity => $xPathCommodity) {
-    $commodityelements = $xpath->query($xPathCommodity);
+            ];
 
-    $xPathRate = $rateXpaths[$commodity];
-    $rateElements = $xpath->query($xPathRate);
+            // Dane
+            echo '<table border="1">';
+            echo '<tr><th>Surowiec</th><th>Jednostka</th><th>Cena</th></tr>';
 
-    echo '<tr><td>'.ucfirst($commodity) . '</td>';
+            foreach ($commodityXpaths as $commodity => $xPathCommodity) {
+                $commodityelements = $xpath->query($xPathCommodity);
 
-    echo '<td>';
-    if ($commodityelements->length > 0) {
-        echo $commodityelements->item(0)->nodeValue;
-    } else {
-        echo 'Brak danych.';
-    }
-    echo '</td>';
+                $xPathRate = $rateXpaths[$commodity];
+                $rateElements = $xpath->query($xPathRate);
 
-    echo '<td>';
+                echo '<tr><td>'.ucfirst($commodity) . '</td>';
 
+                echo '<td>';
+                if ($commodityelements->length > 0) {
+                    echo $commodityelements->item(0)->nodeValue;
+                } else {
+                    echo 'Brak danych.';
+                }
+                echo '</td>';
 
- if ($rateElements->length > 0) {
-        echo $rateElements->item(0)->nodeValue;
-    } else {
-        echo 'Brak danych.';
-    }
-    echo '</td>';
-    
-    echo '</tr>';
-}
+                echo '<td>';
 
-echo '</table>';
 
-?>
+            if ($rateElements->length > 0) {
+                    echo $rateElements->item(0)->nodeValue;
+                } else {
+                    echo 'Brak danych.';
+                }
+                echo '</td>';
+                
+                echo '</tr>';
+            }
 
-</div>
+            echo '</table>';
 
-<div class="stock3_2">
-    <p>Zobrazuj zmiany cen na wykresie</p>
+            ?>
 
-    <a href="index_chart3.php">sprawdź</a>
+        </div>
 
-</div>
-
-    
-</div>
+    <div class="stock3_2">
+        <p>Zobrazuj zmiany cen na wykresie</p>
+        <a href="index_chart3.php">sprawdź</a>
+    </div>
+   
+    </div>
+    <?php endif; ?>
     <footer>
 
-<div class="footer1">
-<h1>Przydatne informacje</h1>
-<ul>
-    <li><a href="#">Kursy walut</a></li>
-    <li><a href="#">Pogoda</a></li>
-    <li><a href="#">Sport</a></li>
-    <li><a href="#">Dieta</a></li>
-    <li><a href="#">Horoskop</a></li>
-    <li><a href="#">Oferta</a></li>
-    <li><a href="#">Powódź 2024</a></li>
-</ul>
-</div>
+        <div class="footer1">
+        <h1>Przydatne informacje</h1>
+        <ul>
+            <li><a href="#">Kursy walut</a></li>
+            <li><a href="#">Pogoda</a></li>
+            <li><a href="#">Sport</a></li>
+            <li><a href="#">Dieta</a></li>
+            <li><a href="#">Horoskop</a></li>
+            <li><a href="#">Oferta</a></li>
+            <li><a href="#">Powódź 2024</a></li>
+        </ul>
+        </div>
 
-<div class="O_nas">
-    <h1>Nazwa</h1>
-    <ul>
-        <li><a href="#">O nas</a></li>
-        <li><a href="#">Kariera</a></li>
-        <li><a href="#">Aktualności</a></li>
-        <li><a href="#">Biuro prasowe</a></li>
-        <li><a href="#">System partnerski</a></li>
-        <li><a href="#">Obsługa klienta</a></li>   
-    </ul>
-</div>
+        <div class="O_nas">
+            <h1>Nazwa</h1>
+            <ul>
+                <li><a href="#">O nas</a></li>
+                <li><a href="#">Kariera</a></li>
+                <li><a href="#">Aktualności</a></li>
+                <li><a href="#">Biuro prasowe</a></li>
+                <li><a href="#">System partnerski</a></li>
+                <li><a href="#">Obsługa klienta</a></li>   
+            </ul>
+        </div>
 
-<div class="Pomoc">
-    <h1>Pomoc i kontakt</h1>
-    <ul>
-        <li><a href="#">Kontaktuj się online</a></li>
-        <li><a href="#">Nasza placówka</a></li>
-        <li><a href="#">Telefon: 1 9999</a></li><p>24h / 7dni</p>
-        <li><a href="#">Pytania i odpowiedzi</a></li>
-    </ul>   
-</div>
+        <div class="Pomoc">
+            <h1>Pomoc i kontakt</h1>
+            <ul>
+                <li><a href="#">Kontaktuj się online</a></li>
+                <li><a href="#">Nasza placówka</a></li>
+                <li><a href="#">Telefon: 1 9999</a></li><p>24h / 7dni</p>
+                <li><a href="#">Pytania i odpowiedzi</a></li>
+            </ul>   
+        </div>
 
-<div class="footer2">
-<h1>Znajdziesz nas też na</h1>
-<img class="facb" src="facebook.png" alt="">
-<img class="facb" src="instagram.png" alt="">
-<img class="facb" src="x-twitter-s.svg" alt="">
-<img class="facb" src="youtube.png" alt="">
+        <div class="footer2">
+            <h1>Znajdziesz nas też na</h1>
+            <img class="facb" src="facebook.png" alt="">
+            <img class="facb" src="instagram.png" alt="">
+            <img class="facb" src="x-twitter-s.svg" alt="">
+            <img class="facb" src="youtube.png" alt="">
 
-    <div class="wersja">
-        <h2>Wersja językowa</h2>
+            <div class="wersja">
+                <h2>Wersja językowa</h2>
 
-        <a href="#">PL</a>
-        <a href="#">EN</a>
-        <a href="#">ES</a>
-    </div>
-</div>
+                <a href="#">PL</a>
+                <a href="#">EN</a>
+                <a href="#">ES</a>
+            </div>
+        </div>
 
-    <div class="footer3">
-        <p>2024 &copy; Nazwa. Wszelkie prawa zastrzeżone.
-        Nazwa i logo są zarejestrowanymi znakami towarowymi.</p>
+        <div class="footer3">
+            <p>2024 &copy; Nazwa. Wszelkie prawa zastrzeżone.
+            Nazwa i logo są zarejestrowanymi znakami towarowymi.</p>
 
-        <p>Opłata za połączenie z infolinią wiadomości zgodna z taryfą danego operatora.
-        Słowniczek pojęć i definicji dotyczących usług reprezentatywnych, wynikających z rozporządzenia
-        <br>Ministra Rozwoju i Finansów z dnia 14 lipca 2017 r. w sprawie wykazu usług reprezentatywnych
-            powiązanych z rachunkiem płatniczym,
-        dostępny jest na stronie<br> strona.pl/PAD oraz w placówkach.</p>
+            <p>Opłata za połączenie z infolinią wiadomości zgodna z taryfą danego operatora.
+            Słowniczek pojęć i definicji dotyczących usług reprezentatywnych, wynikających z rozporządzenia
+            <br>Ministra Rozwoju i Finansów z dnia 14 lipca 2017 r. w sprawie wykazu usług reprezentatywnych
+                powiązanych z rachunkiem płatniczym,
+            dostępny jest na stronie<br> strona.pl/PAD oraz w placówkach.</p>
 
-    </div>
+        </div>
 
-<div class="footer4">
-    <img src="logo_stopka.png" alt="">
-    <a href="#">Regulamin serwisu</a>
-    <a href="#">Polityka prywatności</a>
-    <a href="#">Polityka przetwarzania danych osobowych (RODO)</a>
-    <a href="#">Polityka cookies</a>
-</div>
+        <div class="footer4">
+            <img src="logo_stopka.png" alt="">
+            <a href="#">Regulamin serwisu</a>
+            <a href="#">Polityka prywatności</a>
+            <a href="#">Polityka przetwarzania danych osobowych (RODO)</a>
+            <a href="#">Polityka cookies</a>
+        </div>
 
-</footer>
-    
+</footer>   
 </body>
 </html>

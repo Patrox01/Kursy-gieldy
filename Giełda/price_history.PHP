@@ -19,7 +19,7 @@ require 'config.php';
 $materials = ['złoto', 'pszenica', 'aluminium', 'kakao', 'cukier', 'pallad'];
 
 $chosenMaterial = $_GET['surowiec'] ?? 'złoto';
-$dateFrom = $_GET['data_od'] ?? '2023-01-01';
+$dateFrom = $_GET['data_od'] ?? date('Y-m-d', strtotime('-1 day'));
 $dateTo = $_GET['data_do'] ?? date('Y-m-d');
 
 $stmt = $pdo->prepare("
@@ -39,7 +39,7 @@ $stmt->execute([
 $data = $stmt->fetchAll();
 
 echo '<h1>Historia Cen Surowców</h1>';
-echo '<form method="GET" action="price_history.php">';
+echo '<form method="GET" action="index_chart.php">';
 echo '<label for="surowiec">Wybierz surowiec: </label>';
 echo '<select name="surowiec" id="surowiec">';
 foreach ($materials as $surowiec) {
@@ -72,7 +72,7 @@ if (empty($data)) {
     $jednostka = (!empty($data)) ? $data[0]['jednostka'] : '';  
 
     // Wykres
-    echo '<canvas id="chart_' . htmlspecialchars($chosenMaterial) . '" width="800" height="400"></canvas>';
+    echo '<canvas id="chart_' . htmlspecialchars($chosenMaterial) . '" width="1000" height="500"></canvas>';
     echo '<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>';
     echo '<script>
         const ctx_' . htmlspecialchars($chosenMaterial) . ' = document.getElementById("chart_' . htmlspecialchars($chosenMaterial) . '").getContext("2d");

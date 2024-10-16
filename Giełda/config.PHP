@@ -1,5 +1,4 @@
 <?php
-
 $host = 'localhost';
 $db   = 'stock exchange rate';
 $user = 'root';

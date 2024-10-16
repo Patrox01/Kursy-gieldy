@@ -24,25 +24,41 @@ header{
     margin-top: 10px;
     position: absolute;
     border-radius: 15px 0px 15px 0px;
-    padding-top: 6px;
-    padding-left: 80px;
+    padding-top: 16px;
+    padding-left: 20px;
     
+}
+.navow form{
+    position: absolute;
 }
 .navow a{
     text-decoration: none;
     padding-top: 5px;
     color:white;
     padding-left: 20px;
+    position: relative;
 }
 .navow a:hover{
     color:rgb(62, 132, 148);
+    font-size: 18px;
+    transition: 0.5s;
 }
-.rejestruj{
-    height: 55px;
-    width: 120px;
-    margin-left: 420px; 
-    margin-top: -10px;
+
+.welcome{
+    color:white;
+    font-size: 20px;
     position: absolute;
+    margin-left: 25px;
+}
+
+.welcome a:hover{
+    color: white;
+    cursor: default;
+    font-size: 20px;
+}
+
+#registerLink{
+    margin-left: 80px; 
 }
 .rejestruj a{
 font-size: 17px;
@@ -58,7 +74,7 @@ color: white;
     background-color: rgb(241, 239, 239);
     width: 130px;
     margin-left: 175vh;
-    margin-top: 15px;
+    margin-top: 16px;
     position: absolute;
     border-radius: 5px 5px 5px 5px;
     padding-top: 7.5px;
@@ -621,3 +637,4 @@ padding-top: 25px;
 .footer4 a:hover{
     text-decoration: underline;
 }
+
