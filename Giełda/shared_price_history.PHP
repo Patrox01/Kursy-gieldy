@@ -146,7 +146,8 @@ if (empty($data1) && empty($data2) && empty($data3)) {
                             text: "Cena (' . htmlspecialchars($jednostka) . ')"
                         }
                     }
-                }
+                },
+                
             }
         });
     </script>';

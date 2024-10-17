@@ -77,8 +77,8 @@ color: white;
 .rejestracja{
     height: 39px;
     background-color: rgb(241, 239, 239);
-    width: 130px;
-    margin-left: 175vh;
+    width: 135px;
+    margin-left: 174vh;
     margin-top: 15px;
     position: absolute;
     border-radius: 5px 5px 5px 5px;
@@ -114,7 +114,10 @@ color: white;
 }
 
 .rejestracja:hover .lock{
-    filter: invert(95%) sepia(100%) saturate(0%) hue-rotate(114deg) brightness(104%) contrast(106%);  
+    filter: invert(95%) sepia(100%) saturate(0%) hue-rotate(114deg) brightness(104%) contrast(106%);
+    content: url('lock-open-solid.svg');
+    height: 25px;
+    float: left;
 }
 
 .shared_chart{
@@ -187,6 +190,24 @@ color: white;
             color: white;
             border-color: white;
 }
+
+.arrow_down{
+    background-image: url(blue-arrow-clay-texture-pointing-down-hand-craft-graphic-kids.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: transparent;
+    background-size: contain;
+    height: 655px;
+    width: 600px;
+    margin-left: 965px;
+    margin-top: 300px;
+    position: absolute;
+    border-radius: 15px 15px 15px 15px;
+    padding-top: 6px;
+  
+}
+
+
 main{
     margin-top: 50px;
     height: 1280px;

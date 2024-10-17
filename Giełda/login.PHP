@@ -5,7 +5,7 @@ require 'config_users.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = trim($_POST['username']);
-    $password = trim($_POST['password']);
+    $password = ($_POST['password']);
 
     try {
         $stmt = $pdo->prepare('SELECT * FROM users WHERE username = :username');
@@ -19,15 +19,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header('Location: index.php');
             exit();
         } else {
-            header('Location: index.php?error=invalid');
+            header('Location: index.php?login_error=invalid');
             exit();
         }
     } catch (PDOException $e) {
-        header('Location: index.php?error=server');
+        header('Location: index.php?login_error=server');
         exit();
     }
 } else {
-    header('Location: index.php?error=invalid_request');
+    header('Location: index.php?login_error=invalid_request');
     exit();
 }
 ?>
