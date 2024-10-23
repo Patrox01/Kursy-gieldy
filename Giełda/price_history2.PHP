@@ -70,9 +70,7 @@ if (empty($data)) {
     }
     
     $jednostka = (!empty($data)) ? $data[0]['jednostka'] : '';
-
     
-
     // Wykres
     echo '<canvas id="chart_' . htmlspecialchars($chosenMaterial) . '" width="1000" height="500"></canvas>';
     echo '<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>';

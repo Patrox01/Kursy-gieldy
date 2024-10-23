@@ -18,7 +18,7 @@ if (isset($_POST['username'], $_POST['email'], $_POST['password'], $_POST['passw
         exit();
     }
 
-    if (!preg_match('/^[A-Za-z0-9!@#$%^&* \s]{12,128}$/u', $password)) {
+    if (!preg_match('/^.{12,128}$/us', $password)) {
         header('Location: index.php?register_error=weak_password');
         exit();
     }
@@ -26,6 +26,35 @@ if (isset($_POST['username'], $_POST['email'], $_POST['password'], $_POST['passw
     if ($password !== $passwordConfirm) {
         header('Location: index.php?register_error=password_mismatch');
         exit();
+    }
+
+    function isPasswordBreached($password) {
+        // Oblicz hash SHA-1 hasła
+        $sha1 = strtoupper(sha1($password));
+        // Pobierz pierwsze 5 znaków skrótu
+        $prefix = substr($sha1, 0, 5);
+        $suffix = substr($sha1, 5);
+    
+        // Zapytanie do API HIBP z prefiksem skrótu
+        $url = 'https://api.pwnedpasswords.com/range/' . $prefix;
+        $response = file_get_contents($url);
+    
+        if ($response !== false) {
+            $hashes = explode("\n", $response);
+            foreach ($hashes as $hash) {
+                list($hashSuffix, $count) = explode(':', $hash);
+                if ($suffix === trim($hashSuffix)) {
+                    return true; // Hasło jest na liście wycieków
+                }
+            }
+        }         
+        return false; // Hasło nie jest na liście wycieków
+    }    
+    if (isPasswordBreached($password)) {
+        header('Location: index.php?register_error=password_not_safe');
+        exit();
+    } else {
+        header('Location: index.php?register_error=password_safe');
     }
 
 

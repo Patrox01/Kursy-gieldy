@@ -16,7 +16,6 @@
         exit();
     }
     ?>
-
 </head>
 <body>
 
@@ -43,7 +42,6 @@
         </div>
         <a href="logout.php">Wyloguj się</a>
     </div>
-
     <div class="arrow_down"></div>
 </header>
 
@@ -57,7 +55,6 @@
     <?php
     include 'shared_price_history.php';
     ?>
-
 </main>
 
 <footer>

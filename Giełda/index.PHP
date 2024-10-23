@@ -6,234 +6,311 @@
     <title>Kursy giełdowe</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="icon" href="logo_stopka.png" type="image/png">
     <script src="https://kit.fontawesome.com/dbdc945dcf.js" crossorigin="anonymous"></script>
     <script src="https://www.google.com/recaptcha/api.js" asyncdefer></script>
-  <script src="https://www.google.com/recaptcha/enterprise.js?render=6LdqJWQqAAAAAK8rKqLnYNveOjSty6fZbAVE9Ib0"></script>
-
-
+    <script src="https://www.google.com/recaptcha/enterprise.js?render=6LdqJWQqAAAAAK8rKqLnYNveOjSty6fZbAVE9Ib0"></script>  
 </head>
-<?php
-session_start();
-?>
 
-<script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // rejestracja
-            const urlParams = new URLSearchParams(window.location.search);
-            const registerError = urlParams.get('register_error');
+<body>
 
-            if (registerError) {
-            switch (registerError) {
-                case 'empty':
-                    alert('Wszystkie pola są wymagane przy rejestracji!');
-                    break;
-                case 'user_or_email_exists':
-                    alert('Nazwa lub adres E-mail już jest zajęty.');
-                    break;
-                case 'weak_password':
-                    alert('Hasło musi mieć co najmniej 12 znaków i maksymalnie 128.');
-                    break;
-                case 'password_mismatch':
-                    alert('Hasła nie są zgodne. Wpisz ponownie.');
-                    break;
-                case 'server':
-                    alert('Wystąpił błąd serwera podczas rejestracji. Spróbuj ponownie później.');
-                    break;
-                case 'invalid_request':
-                    alert('Nieprawidłowe żądanie rejestracji.');
-                    break;
-                case 'invalid_email':
-                    alert('Niepoprawny adres E-mail.');
-                    break;
-                default:
-                    alert('Wystąpił nieznany błąd podczas rejestracji.');
-            }
-        }
+    <?php
+        session_start();
+    ?>
 
-        // logowanie
-        const loginerror = urlParams.get('login_error');
+    <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // rejestracja
+                const urlParams = new URLSearchParams(window.location.search);
+                const registerError = urlParams.get('register_error');
 
-            if (loginerror) {
-                switch (loginerror) {
+                if (registerError) {
+                switch (registerError) {
                     case 'empty':
-                        alert('Wszystkie pola są wymagane!');
+                        alert('Wszystkie pola są wymagane przy rejestracji!');
                         break;
-                    case 'invalid':
-                        alert('Niepoprawna nazwa użytkownika lub hasło.');
+                    case 'user_or_email_exists':
+                        alert('Nazwa lub adres E-mail już jest zajęty.');
                         break;
-                    case 'server':
-                        alert('Wystąpił błąd serwera. Spróbuj ponownie później.');
+                    case 'weak_password':
+                        alert('Hasło musi mieć co najmniej 12 znaków i maksymalnie 128.');
                         break;
-                    case 'invalid_request':
-                        alert('Nieprawidłowe żądanie.');
-                        break;
-                    default:
-                        alert('Wystąpił nieznany błąd.');
-                }
-            }
-
-            const resetError = urlParams.get('error');
-            const resetSuccess = urlParams.get('success');
-
-            if (resetError) {
-                switch (resetError) {
-                    case 'invalid_email':
-                        alert('Niepoprawny adres E-mail. Proszę wprowadzić poprawny adres.');
-                        break;
-                    case 'email_not_found':
-                        alert('Podany adres E-mail nie istnieje w naszej bazie danych.');
-                        break;
-                    case 'server':
-                        alert('Wystąpił błąd serwera. Spróbuj ponownie później.');
-                        break;
-                    case 'invalid_request':
-                        alert('Nieprawidłowe żądanie. Spróbuj ponownie.');
-                        break;
-                    default:
-                        alert('Wystąpił nieznany błąd podczas próby wysłania linku do resetowania hasła.');
-                }
-            }
-
-            if (resetSuccess) {
-                switch (resetSuccess) {
-                    case 'reset_link_sent':
-                        alert('Link do resetowania hasła został wysłany na Twój adres e-mail.');
-                        break;
-                    default:
-                        alert('Wysłanie linku zakończone sukcesem, ale wystąpił nieoczekiwany problem.');
-                }
-            }
-
-            const resetPasswordError = urlParams.get('error');
-            const resetPasswordSuccess = urlParams.get('success');
-
-            if (resetPasswordError) {
-                switch (resetPasswordError) {
                     case 'password_mismatch':
                         alert('Hasła nie są zgodne. Wpisz ponownie.');
                         break;
-                    case 'weak_password':
-                        alert('Hasło musi mieć co najmniej 12 znaków i maksymalnie 128 znaków.');
-                        break;
-                    case 'invalid_token':
-                        alert('Link do resetowania hasła jest nieprawidłowy lub wygasł.');
+                    case 'incorrect_old_password':
+                        alert("Stare hasło sie nie zgadza")
                         break;
                     case 'server':
-                        alert('Wystąpił błąd serwera podczas resetowania hasła. Spróbuj ponownie później.');
+                        alert('Wystąpił błąd serwera podczas rejestracji. Spróbuj ponownie później.');
                         break;
                     case 'invalid_request':
-                        alert('Nieprawidłowe żądanie resetowania hasła.');
+                        alert('Nieprawidłowe żądanie rejestracji.');
+                        break;
+                    case 'invalid_email':
+                        alert('Niepoprawny adres E-mail.');
+                        break;
+                    case 'password_safe':
+                        alert('Twoje hasło nie znajduje się w bazie niebezpiecznych haseł');
+                        break;
+                    case 'password_not_safe':
+                        alert('Twoje hasło znajduje się w bazie niebezpiecznych haseł, dla swojego bezpieczeństwa zmień je.');
                         break;
                     default:
-                        alert('Wystąpił nieznany błąd podczas resetowania hasła.');
+                        alert('Wystąpił nieznany błąd podczas rejestracji.');
                 }
             }
 
-            if (resetPasswordSuccess) {
-                switch (resetPasswordSuccess) {
-                    case 'password_reset':
-                        alert('Hasło zostało pomyślnie zresetowane! Możesz teraz się zalogować.');
-                        break;
-                    default:
-                        alert('Resetowanie hasła zakończone sukcesem, ale wystąpił nieoczekiwany problem.');
-                }
-            }
+            // logowanie
+                const loginError = urlParams.get('login_error');
 
-            const changePasswordError = urlParams.get('error');
-            const changePasswordSuccess = urlParams.get('success');
-
-            if (changePasswordError) {
-                switch (changePasswordError) {
-                    case 'password_mismatch':
-                        alert('Nowe hasła nie są zgodne. Wpisz ponownie.');
-                        break;
-                    case 'weak_password':
-                        alert('Nowe hasło musi mieć co najmniej 12 znaków i maksymalnie 128 znaków.');
-                        break;
-                    case 'incorrect_old_password':
-                        alert('Podane stare hasło jest nieprawidłowe.');
-                        break;
-                    case 'server':
-                        alert('Wystąpił błąd serwera podczas zmiany hasła. Spróbuj ponownie później.');
-                        break;
-                    default:
-                        alert('Wystąpił nieznany błąd podczas zmiany hasła.');
+                if (loginError) {
+                    switch (loginError) {
+                        case 'empty':
+                            alert('Wszystkie pola są wymagane!');
+                            break;
+                        case 'invalid':
+                            alert('Niepoprawna nazwa użytkownika lub hasło.');
+                            break;
+                        case 'server':
+                            alert('Wystąpił błąd serwera. Spróbuj ponownie później.');
+                            break;
+                        case 'invalid_request':
+                            alert('Nieprawidłowe żądanie.');
+                            break;
+                        default:
+                            alert('Wystąpił nieznany błąd.');
+                    }
                 }
-            }
 
-            if (changePasswordSuccess) {
-                switch (changePasswordSuccess) {
-                    case 'password_changed':
-                        alert('Hasło zostało pomyślnie zmienione!');
-                        break;
-                    default:
-                        alert('Zmiana hasła zakończona sukcesem, ale wystąpił nieoczekiwany problem.');
+                const resetError = urlParams.get('error');
+                const resetSuccess = urlParams.get('success');
+
+                if (resetError) {
+                    switch (resetError) {
+                        case 'invalid_email':
+                            alert('Niepoprawny adres E-mail. Proszę wprowadzić poprawny adres.');
+                            break;
+                        case 'email_not_found':
+                            alert('Podany adres E-mail nie istnieje w naszej bazie danych.');
+                            break;
+                        case 'server':
+                            alert('Wystąpił błąd serwera. Spróbuj ponownie później.');
+                            break;
+                        case 'invalid_request':
+                            alert('Nieprawidłowe żądanie. Spróbuj ponownie.');
+                            break;
+                    }
                 }
-            }
-        })         
+
+                if (resetSuccess) {
+                    switch (resetSuccess) {
+                        case 'reset_link_sent':
+                            alert('Link do resetowania hasła został wysłany na Twój adres e-mail.');
+                            break;
+                    }
+                }
+
+                const resetPasswordError = urlParams.get('error');
+                const resetPasswordSuccess = urlParams.get('success');
+
+                if (resetPasswordError) {
+                    switch (resetPasswordError) {
+                        case 'password_mismatch':
+                            alert('Hasła nie są zgodne. Wpisz ponownie.');
+                            break;
+                        case 'weak_password':
+                            alert('Hasło musi mieć co najmniej 12 znaków i maksymalnie 128 znaków.');
+                            break;
+                        case 'invalid_token':
+                            alert('Link do resetowania hasła jest nieprawidłowy lub wygasł.');
+                            break;
+                        case 'server':
+                            alert('Wystąpił błąd serwera podczas resetowania hasła. Spróbuj ponownie później.');
+                            break;
+                        case 'invalid_request':
+                            alert('Nieprawidłowe żądanie resetowania hasła.');
+                            break;
+                        case 'password_not_safe':
+                            alert('Twoje hasło znajduje się w bazie niebezpiecznych haseł, dla swojego bezpieczeństwa zmień je.');
+                            break;
+                    }
+                }
+
+                const changePasswordError = urlParams.get('error');
+                const changePasswordSuccess = urlParams.get('success');
+
+                if (changePasswordError) {
+                    switch (changePasswordError) {
+                        case 'password_mismatch':
+                            alert('Nowe hasła nie są zgodne. Wpisz ponownie.');
+                            break;
+                        case 'weak_password':
+                            alert('Nowe hasło musi mieć co najmniej 12 znaków i maksymalnie 128 znaków.');
+                            break;
+                        case 'incorrect_old_password':
+                            alert('Podane stare hasło jest nieprawidłowe.');
+                            break;
+                        case 'server':
+                            alert('Wystąpił błąd serwera podczas zmiany hasła. Spróbuj ponownie później.');
+                            break;
+                        default:
+                            alert('Wystąpił nieznany błąd podczas zmiany hasła.');
+                    }
+                }
+
+                if (changePasswordSuccess) {
+                    switch (changePasswordSuccess) {
+                        case 'password_reset':
+                            alert('Hasło zostało pomyślnie zmienione!');
+                            break;
+                        default:
+                            alert('Zmiana hasła zakończona sukcesem, ale wystąpił nieoczekiwany problem.');
+                    }
+                }
+            })         
     </script>
-<body>
 
     <header>
-
         <div class="navow">            
             <a href="#">Z ostatniej chwili</a>
             <a href="#">Notowania</a>
             <a href="#">AI</a>
             <a href="#">Firma</a>
+
             <?php if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true): ?>
                 <a href="" id="registerLink">Załóż konto</a>
             <?php endif; ?>
             <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
-                <a class="welcome">Witaj <?php echo htmlspecialchars($_SESSION['username']);?>!</a>
+
+                <div class="dropdown">
+                    <a class="welcome">Witaj <?php echo htmlspecialchars($_SESSION['username']);?>!</a>
+                    <div class="dropdown-content">
+                        <a href="#" id="changePasswordLink">Zmień hasło</a>
+                    </div>
+                </div>
+           
             <?php endif;?>
 
-            
-       
-            <script>
-                document.getElementById('registerForm').addEventListener('submit', function (e) {
-                const password = document.getElementById('password').value;
-                const passwordConfirm = document.getElementById('password_confirm').value;
-
-                const passwordPolicy = /^[A-Za-z0-9!@#$%^&* \s]{12,128}$/u;
-                
-
-                if (!passwordPolicy.test(password)) {
-                    alert('Hasło musi mieć co najmniej 12 znaków i maksymalnie 128.');
-                    e.preventDefault();
-                    return;
-                }
-
-                if (password !== passwordConfirm) {
-                    alert('Hasła nie są zgodne. Wpisz ponownie.');
-                    e.preventDefault();
-                }
-                });
-            </script>
-
-            <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                const registerLink = document.getElementById('registerLink');
-                const registerModal = document.getElementById('registerModal');
-                const closeRegisterModal = document.getElementById('closeRegisterModal');
-                const content = document.getElementById('content');
-
-                registerLink.addEventListener('click', (event) => {
-                    event.preventDefault();
-                    registerModal.style.display = 'flex';
-                    content.style.display = 'none';
-                });
-
-                if (closeRegisterModal) {
-                    closeRegisterModal.addEventListener('click', () => {
-                        registerModal.style.display = 'none';
-                        content.style.display = 'flex';
+                <script>
+                    document.querySelector('.welcome').addEventListener('click', function() {
+                        const dropdown = this.parentElement;
+                        dropdown.classList.toggle('active');
                     });
-                }
-                });
-            </script>
+
+                    window.addEventListener('click', function(e) {
+                        const dropdown = document.querySelector('.dropdown');
+                        if (!dropdown.contains(e.target)) {
+                            dropdown.classList.remove('active');
+                        }
+                    });
+                </script>                
+        
+                <script>
+                    document.getElementById('registerForm').addEventListener('submit', function (e) {
+                    const password = document.getElementById('password').value;
+                    const passwordConfirm = document.getElementById('password_confirm').value;
+
+                    const passwordPolicy = /^.{12,128}$/us;
+                    
+                    if (!passwordPolicy.test(password)) {
+                        alert('Hasło musi mieć co najmniej 12 znaków i maksymalnie 128.');
+                        e.preventDefault();
+                        return;
+                    }
+
+                    if (password !== passwordConfirm) {
+                        alert('Hasła nie są zgodne. Wpisz ponownie.');
+                        e.preventDefault();
+                    }
+                    });
+                </script>
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                    const registerLink = document.getElementById('registerLink');
+                    const registerModal = document.getElementById('registerModal');
+                    const closeRegisterModal = document.getElementById('closeRegisterModal');
+                    const content = document.getElementById('content');
+
+                    registerLink.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        registerModal.style.display = 'flex';
+                        content.style.display = 'none';
+                    });
+
+                    if (closeRegisterModal) {
+                        closeRegisterModal.addEventListener('click', () => {
+                            registerModal.style.display = 'none';
+                            content.style.display = 'flex';
+                        });
+                    }
+                    });
+                </script>
         </div>
+
+        <div id="changePasswordModal" class="modal">
+                <div class="modal-content">
+
+                <span class="close" id="closeModal">&times;</span>
+                <h2>Zmiana hasła</h2>
+
+                <form id="ChangeForm" action="reset_password.php" method="post">
+                    <input type="text" name="username" placeholder="Login" required>
+                    <div class="password-containter">
+                        <input id="password1" type="password" name="old_password" placeholder="Stare hasło" required>
+                        <label for="password">
+                                    <span class="toggle-password" onclick="togglePassword1()">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </span>
+                        </label> 
+                    </div>
+                    
+                    <div class="password-containter">
+                        <input id="password2" type="password" name="new_password" placeholder="Nowe hasło" required>
+                        <label for="password">
+                                    <span class="toggle-password" onclick="togglePassword2()">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </span>
+                        </label>
+                    </div>  
+                    <div class="password-containter">      
+                        <input id="password3" type="password" name="new_password_confirm" placeholder="Powtórz nowe hasło" required>      
+                        <label for="password">
+                                    <span class="toggle-password" onclick="togglePassword3()">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </span>
+                        </label>   
+                    </div> 
+                    <progress max="100" value="0" id="meterChange"></progress>      
+                    <div class="textboxChange">Siła hasła</div>             
+                    <button type="submit">Zmień hasło</button>                   
+                </form>
+
+               
+
+                <script> 
+                    function togglePassword1() {
+                    const passwordField = document.getElementById("password1");
+                    const type = passwordField.type === "password" ? "text" : "password";
+                    passwordField.type = type;
+                    }
+
+                    function togglePassword2() {
+                    const passwordField = document.getElementById("password2");
+                    const type = passwordField.type === "password" ? "text" : "password";
+                    passwordField.type = type;
+                    }
+
+                    function togglePassword3() {
+                    const passwordField = document.getElementById("password3");
+                    const type = passwordField.type === "password" ? "text" : "password";
+                    passwordField.type = type;
+                    }     
+                </script>
+                </div>
+            </div>
 
         <div id="registerModal" class="modal">
                 <div class="modal-content">
@@ -242,30 +319,32 @@ session_start();
                     <form id="registerForm" action="register.php" method="post">
                         <input type="text" name="username" placeholder="Login" required>
                         <input type="email" name="email" placeholder="Adres e-mail" required>
-                        <input type="password" name="password" placeholder="Hasło" required id="password">                   
+                        
+                        <div class="password-containter">
+                            <input type="password" name="password" placeholder="Hasło" required id="password">                                         
+                                <label for="password">
+                                    <span class="toggle-password" onclick="togglePassword4()">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </span>
+                                </label>
+                        </div>
 
-                            <label for="password">
-                                <span class="toggle-password" onclick="togglePassword()">
-                                    <i class="fa-solid fa-eye"></i>
-                                </span>
-                            </label>
+                        <div class="password-containter2">
+                            <input type="password" name="password_confirm" placeholder="Powtórz hasło" required id="password_confirm">
+                                <label for="password_confirm">
+                                    <span class="toggle-confirm-password" onclick="togglePasswordConfirm()">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </span>
+                                </label>
+                        </div>
 
                         <script>
-                            function togglePassword() {
+                            function togglePassword4() {
                             const passwordField = document.getElementById("password");
                             const type = passwordField.type === "password" ? "text" : "password";
                             passwordField.type = type;
-                            }
-                        </script>
+                            }                                               
 
-                        <input type="password" name="password_confirm" placeholder="Powtórz hasło" required id="password_confirm">
-                            <label for="password_confirm">
-                                <span class="toggle-confirm_password" onclick="togglePasswordConfirm()">
-                                    <i class="fa-solid fa-eye"></i>
-                                </span>
-                            </label>
-
-                        <script>
                             function togglePasswordConfirm() {
                             const passwordField = document.getElementById("password_confirm");
                             const type = passwordField.type === "password" ? "text" : "password";
@@ -286,10 +365,10 @@ session_start();
                         var display = document.getElementsByClassName("textbox")[0];
 
                         code.addEventListener("keyup", function() {
-                            checkpassword(code.value);
+                            checkpasswordreg(code.value);
                         });
 
-                        function checkpassword(password) {
+                        function checkpasswordreg(password) {
                             var strength = 0;
                             if (password.match(/[a-z]+/)) {
                                 strength += 1;
@@ -301,6 +380,9 @@ session_start();
                                 strength += 1;
                             }
                             if (password.match(/[$@#&!]+/)) {
+                                strength += 1;
+                            }
+                            if (password.length >= 12) {
                                 strength += 1;
                             }
 
@@ -318,24 +400,27 @@ session_start();
                                 break;
 
                             case 1:
-                                strengthbar.value = 25;
+                                strengthbar.value = 20;
                                 break;
 
                             case 2:
-                                strengthbar.value = 50;
+                                strengthbar.value = 40;
                                 break;
 
                             case 3:
-                                strengthbar.value = 75;
+                                strengthbar.value = 60;
                                 break;
 
                             case 4:
+                                strengthbar.value = 80;
+                                break;                        
+
+                            case 5:
                                 strengthbar.value = 100;
                                 break;
                             }
                         }
                         </script>
-
                 </div>
         </div>
 
@@ -345,34 +430,43 @@ session_start();
             </div>
 
                 <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
-                <div id="welcome">
-             
-                    <a href="logout.php" id="logoutButton">Wyloguj się</a>
-                </div>
+                    <div id="welcome">
+                        <a href="logout.php" id="logoutButton">Wyloguj się</a>
+                    </div>
                 <?php else: ?>
                     <a href="#" id="loginLink">Zaloguj się</a>
                 <?php endif; ?>
 
-            <div id="loginModal" class="modal">
-            <div class="modal-content">
+                <div id="loginModal" class="modal">
+                <div class="modal-content">
 
-            <span class="close" id="closeModal">&times;</span>
-            <h2>Logowanie</h2>
+                <span class="close" id="closeModalLogin">&times;</span>
+                <h2>Logowanie</h2>
 
-            <form id="loginForm" action="login.php" method="post">
-                <input type="text" name="username" placeholder="Login" required>
-                <input type="password" name="password" placeholder="Hasło" required>
-                <div id="recaptcha-container"></div>
-                <div class="g-recaptcha" data-sitekey="'6LdqJWQqAAAAAK8rKqLnYNveOjSty6fZbAVE9Ib0"></div>
-
-                
-
-                <button type="submit">Zaloguj się</button>
-                <button type="button" id="forgotPasswordLink">Zapomniałem Hasła</button>
-            </form>
-
-            </div>
-            </div>
+                <form id="loginForm" action="login.php" method="post">
+                    <input type="text" name="username" placeholder="Login" required>
+                    <div class="password-containter">
+                        <input id="loginpassword" type="password" name="password" placeholder="Hasło" required>
+                        <label for="password">
+                                    <span class="toggle-confirm-password" onclick="togglePassword()">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </span>
+                        </label>
+                    </div>
+                    <div id="recaptcha-container"></div>
+                    <div class="g-recaptcha" data-sitekey="6LdJ1mgqAAAAAMXbEOCVCBZ9H8425VWUGEMTWQnH"></div>                                      
+                    <button type="submit">Zaloguj się</button>                   
+                    <script>
+                            function togglePassword() {
+                            const passwordField = document.getElementById("loginpassword");
+                            const type = passwordField.type === "password" ? "text" : "password";
+                            passwordField.type = type;
+                            }
+                    </script>
+                    <button type="button" id="forgotPasswordLink">Zapomniałem Hasła</button>
+                </form>
+                </div>
+                </div>
 
             <div id="forgotPasswordModal" class="modal">
                 <div class="modal-content">
@@ -384,7 +478,6 @@ session_start();
                     </form>
                 </div>
             </div>           
-
         </div>
 
         <div class="shared_chart" id="content">
@@ -404,6 +497,7 @@ session_start();
             const loginLink = document.getElementById('loginLink');
             const loginModal = document.getElementById('loginModal');
             const closeModal = document.getElementById('closeModal');
+            const closeModalLogin = document.getElementById('closeModalLogin');
             const forgotPasswordLink = document.getElementById('forgotPasswordLink');
             const forgotPasswordModal = document.getElementById('forgotPasswordModal');
             const closeForgotPasswordModal = document.getElementById('closeForgotPasswordModal');
@@ -412,6 +506,7 @@ session_start();
             const compareLink = document.querySelector('.shared_chart a');
             const mustBeLoggedInModal = document.getElementById('mustBeLoggedInModal');
             const closeMustBeLoggedInModal = document.getElementById('closeMustBeLoggedInModal');
+            const changePasswordLink = document.getElementById('changePasswordLink');
             
             // Pokaż modal logowania i ukryj content
             if (loginLink) {
@@ -430,9 +525,26 @@ session_start();
                 });
             }
 
+            if ( changePasswordLink) {
+                changePasswordLink.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    changePasswordModal.style.display = 'flex';
+                    content.style.display = 'none';  
+                })
+            }
+
             if (closeModal) {
                 closeModal.addEventListener('click', () => {
                     loginModal.style.display = 'none';
+                    changePasswordModal.style.display = 'none';
+                    content.style.display = 'flex';
+                });
+            }
+
+            if (closeModalLogin) {
+                closeModalLogin.addEventListener('click', () => {
+                    loginModal.style.display = 'none';
+                    changePasswordModal.style.display = 'none';
                     content.style.display = 'flex';
                 });
             }
@@ -444,22 +556,24 @@ session_start();
                     content.style.display = 'flex';
                 });
             }
-
-            <?php if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true): ?>
+       
+            <?php 
+                if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true): ?>
                     if (compareLink) {
                         compareLink.addEventListener('click', (event) => {
                             event.preventDefault();
                             mustBeLoggedInModal.style.display = 'flex';
                         });
                     }
-                <?php endif; ?>
+            <?php endif;           
+            ?>
 
                 if (closeMustBeLoggedInModal) {
                     closeMustBeLoggedInModal.addEventListener('click', () => {
                         mustBeLoggedInModal.style.display = 'none';
                     });
                 }
-    </script>
+        </script>
 
     </header>
 
@@ -493,21 +607,20 @@ session_start();
         $commodityXpaths = [
             'złoto' =>  /*jedn*/ '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[14]/td[2]',
 
-            'pszenica' => /*jedn*/ '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[32]/td[2]',
+            'pszenica' => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[32]/td[2]',
 
-            'aluminium' =>  /*jedn*/ '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[1]/td[2]',
+            'aluminium' => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[1]/td[2]',
 
-            'kakao'     => /*jedn*/ '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[5]/td[2]',
+            'kakao'     => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[5]/td[2]',
 
             'cukier'    => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[31]/td[2]',
 
             'pallad'    => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[20]/td[2]'
 
-
         ];
 
         $rateXpaths = [
-            'złoto' => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[14]/td[3]/span',
+            'złoto' => /*cena*/'//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[14]/td[3]/span',
 
             'pszenica' => '//*[@id="quotes-commodities-quotes-table-box"]/div/div/div[2]/div/table/tbody/tr[32]/td[3]/span',
 
@@ -600,21 +713,20 @@ session_start();
             $commodityXpaths = [
                 'złoto' =>  /*jedn*/ '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[1]/tr[2]/td[2]',
 
-                'pszenica' => /*jedn*/ '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[2]/tr[18]/td[2]',
+                'pszenica' => '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[2]/tr[18]/td[2]',
 
-                'aluminium' =>  /*jedn*/ '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[1]/tr[8]/td[2]',
+                'aluminium' => '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[1]/tr[8]/td[2]',
 
-                'kakao'     => /*jedn*/ '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[2]/tr[10]/td[2]',
+                'kakao'     => '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[2]/tr[10]/td[2]',
 
                 'cukier'    => '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[2]/tr[6]/td[2]',
 
                 'pallad'    => '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[1]/tr[5]/td[2]'
 
-
             ];
 
             $rateXpaths = [
-                'złoto' => '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[1]/tr[2]/td[3]',
+                'złoto' => /*cena*/ '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[1]/tr[2]/td[3]',
 
                 'pszenica' => '//*[@id="boxQuotes"]/div[2]/table[1]/tbody[2]/tr[18]/td[3]',
 
@@ -704,21 +816,20 @@ session_start();
             $commodityXpaths = [
                 'złoto' =>  /*jedn*/ '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[36]/div[2]',
 
-                'pszenica' => /*jedn*/ '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[24]/div[2]',
+                'pszenica' => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[24]/div[2]',
 
-                'aluminium' =>  /*jedn*/ '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[1]/div[2]',
+                'aluminium' => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[1]/div[2]',
 
-                'kakao'     => /*jedn*/ '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[8]/div[2]',
+                'kakao'     => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[8]/div[2]',
 
                 'cukier'    => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[4]/div[2]',
 
                 'pallad'    => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[22]/div[2]'
 
-
             ];
 
             $rateXpaths = [
-                'złoto' => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[36]/div[3]',
+                'złoto' => /*cena*/ '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[36]/div[3]',
 
                 'pszenica' => '//*[@id="pageTypeId_0"]/div[7]/div/div[1]/div/div[3]/a[24]/div[3]',
 
@@ -778,6 +889,7 @@ session_start();
    
     </div>
     <?php endif; ?>
+
     <footer>
 
         <div class="footer1">
@@ -824,7 +936,6 @@ session_start();
 
             <div class="wersja">
                 <h2>Wersja językowa</h2>
-
                 <a href="#">PL</a>
                 <a href="#">EN</a>
                 <a href="#">ES</a>
@@ -834,13 +945,11 @@ session_start();
         <div class="footer3">
             <p>2024 &copy; Nazwa. Wszelkie prawa zastrzeżone.
             Nazwa i logo są zarejestrowanymi znakami towarowymi.</p>
-
             <p>Opłata za połączenie z infolinią wiadomości zgodna z taryfą danego operatora.
             Słowniczek pojęć i definicji dotyczących usług reprezentatywnych, wynikających z rozporządzenia
             <br>Ministra Rozwoju i Finansów z dnia 14 lipca 2017 r. w sprawie wykazu usług reprezentatywnych
                 powiązanych z rachunkiem płatniczym,
             dostępny jest na stronie<br> strona.pl/PAD oraz w placówkach.</p>
-
         </div>
 
         <div class="footer4">
@@ -851,6 +960,70 @@ session_start();
             <a href="#">Polityka cookies</a>
         </div>
 
-</footer>   
+</footer>  
+ 
+<script>
+        var codeChange = document.getElementById("password2");
+
+        var strengthbarChange = document.getElementById("meterChange");
+        var displayChange = document.getElementsByClassName("textboxChange")[0];
+
+        codeChange.addEventListener("keyup", function() {
+            checkpassword(codeChange.value);
+        });
+
+        function checkpassword(password) {
+            var strengthChange = 0;
+            if (password.match(/[a-z]+/)) {
+                strengthChange += 1;
+            }
+            if (password.match(/[A-Z]+/)) {
+                strengthChange += 1;
+            }
+            if (password.match(/[0-9]+/)) {
+                strengthChange += 1;
+            }
+            if (password.match(/[$@#&!]+/)) {
+                strengthChange += 1;
+            }
+            if (password.length >= 12) {
+                strengthChange += 1;
+            }
+
+            if (password.length < 12) {
+                displayChange.innerHTML = "Minimalna liczba znaków to 12";
+            } else if (password.length > 128) {
+                displayChange.innerHTML = "Maksymalna liczba znaków to 128";
+            } else {
+                displayChange.innerHTML = "Siła hasła";
+            }
+
+            switch (strengthChange) {
+                case 0:
+                    strengthbarChange.value = 0;
+                    break;
+
+                case 1:
+                    strengthbarChange.value = 20;
+                    break;
+
+                case 2:
+                    strengthbarChange.value = 40;
+                    break;
+
+                case 3:
+                    strengthbarChange.value = 60;
+                    break;
+
+                case 4:
+                    strengthbarChange.value = 80;
+                    break;                        
+
+                case 5:
+                    strengthbarChange.value = 100;
+                    break;
+                }
+            }              
+</script>
 </body>
 </html>

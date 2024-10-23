@@ -22,7 +22,7 @@ if (isset($_POST['email'])) {
             $stmt->execute(['token' => $token, 'email' => $email]);
 
             // Link
-            $resetLink = "http://localhost/Gie%c5%82da/reset_password.phptoken=" . $token;
+            $resetLink = "http://localhost/Giełda/reset_password.phptoken=" . $token;
 
             $subject = "Resetowanie hasła";
             $message = "Kliknij w poniższy link, aby zresetować swoje hasło:\n\n" . $resetLink;

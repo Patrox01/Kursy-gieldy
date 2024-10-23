@@ -75,8 +75,7 @@ session_start();
 <body>
 
     <header>
-
-        
+       
     <div class="modal-content">
         <h2>Resetowanie hasła</h2>
         <form action="reset_password.php?token=<?php echo htmlspecialchars($_GET['token']); ?>" method="post">
@@ -85,10 +84,7 @@ session_start();
             <button type="submit">Zresetuj hasło</button>
         </form>
     </div>
-
-
-                
-
+               
     <footer>
 
         <div class="footer1">
@@ -161,7 +157,6 @@ session_start();
             <a href="#">Polityka przetwarzania danych osobowych (RODO)</a>
             <a href="#">Polityka cookies</a>
         </div>
-
 </footer>   
 </body>
 </html>
